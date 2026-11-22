@@ -1,6 +1,6 @@
 /**
  * LearnHub - Central Course Data Repository
- * Contains 10 courses with complete curriculums, lesson metadata, and LocalStorage helpers.
+ * Contains 10 courses with complete curriculums, lesson metadata, and user-scoped LocalStorage helpers.
  */
 
 const COURSES_DATA = [
@@ -148,14 +148,7 @@ h1 {
                 duration: "30 min",
                 summary: "Understanding Content, Padding, Border, Margin, and box-sizing: border-box.",
                 content: `<h3>The Box Model: Core to Every Layout</h3>
-                <p>Every element in CSS is a rectangular box made of four concentric layers:</p>
-                <ol>
-                    <li><strong>Content:</strong> The text, images, or child elements.</li>
-                    <li><strong>Padding:</strong> Transparent buffer inside the border.</li>
-                    <li><strong>Border:</strong> Outlining line wrapping padding and content.</li>
-                    <li><strong>Margin:</strong> Space clearing the outside perimeter of the border.</li>
-                </ol>
-                <div class="alert alert-warning">Always use <code>box-sizing: border-box;</code> universally so padding doesn't balloon element width!</div>`
+                <p>Every element in CSS is a rectangular box made of four concentric layers: Content, Padding, Border, and Margin.</p>`
             },
             {
                 id: 3,
@@ -163,12 +156,7 @@ h1 {
                 duration: "35 min",
                 summary: "Calculating selector weights: Inline (1000) > ID (100) > Class (10) > Element (1).",
                 content: `<h3>Mastering Specificity</h3>
-                <p>When multiple CSS rules conflict on the same element, specificity decides the winner:</p>
-                <ul>
-                    <li><code>#primary-btn</code> has weight (0,1,0,0)</li>
-                    <li><code>.btn.btn-active</code> has weight (0,0,2,0)</li>
-                    <li><code>button</code> has weight (0,0,0,1)</li>
-                </ul>`
+                <p>When multiple CSS rules conflict on the same element, specificity decides the winner.</p>`
             },
             {
                 id: 4,
@@ -176,11 +164,7 @@ h1 {
                 duration: "25 min",
                 summary: "Working with HEX, RGB, HSL, linear-gradient, and box-shadow.",
                 content: `<h3>Rich Aesthetics with Gradients & Shadows</h3>
-                <p>Gradients blend multiple colors smoothly across directional vectors or radial origins.</p>
-                <pre class="bg-dark text-light p-3 rounded"><code>.card-gradient {
-  background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);
-  box-shadow: 0 10px 25px -5px rgba(79, 70, 229, 0.3);
-}</code></pre>`
+                <p>Gradients blend multiple colors smoothly across directional vectors or radial origins.</p>`
             }
         ]
     },
@@ -214,9 +198,7 @@ h1 {
                 duration: "20 min",
                 summary: "Linking CSS and JS bundles, viewport requirements, and container types.",
                 content: `<h3>Getting Started with Bootstrap 5</h3>
-                <p>Bootstrap 5 provides ready-to-use HTML, CSS, and JS components without requiring jQuery. Containers are the most basic layout element in Bootstrap.</p>
-                <pre class="bg-dark text-light p-3 rounded"><code>&lt;!-- Bootstrap 5 CDN Link --&gt;
-&lt;link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"&gt;</code></pre>`
+                <p>Bootstrap 5 provides ready-to-use HTML, CSS, and JS components without requiring jQuery.</p>`
             },
             {
                 id: 2,
@@ -224,12 +206,7 @@ h1 {
                 duration: "35 min",
                 summary: "Rows, columns, gutters, and responsive breakpoints (sm, md, lg, xl, xxl).",
                 content: `<h3>Understanding the 12-Column Grid</h3>
-                <p>Bootstrap divides every row into 12 proportional columns. You assign how many columns an element spans across device viewports:</p>
-                <pre class="bg-dark text-light p-3 rounded"><code>&lt;div class="row g-4"&gt;
-  &lt;div class="col-12 col-md-6 col-lg-4"&gt;Card 1&lt;/div&gt;
-  &lt;div class="col-12 col-md-6 col-lg-4"&gt;Card 2&lt;/div&gt;
-  &lt;div class="col-12 col-md-12 col-lg-4"&gt;Card 3&lt;/div&gt;
-&lt;/div&gt;</code></pre>`
+                <p>Bootstrap divides every row into 12 proportional columns.</p>`
             },
             {
                 id: 3,
@@ -237,7 +214,7 @@ h1 {
                 duration: "40 min",
                 summary: "Navbar toggler, dropdowns, cards, badges, and utility buttons.",
                 content: `<h3>Building Navigation with Bootstrap</h3>
-                <p>The <code>.navbar-expand-*</code> class dictates at which breakpoint the navigation expands into a horizontal desktop bar or collapses into a mobile hamburger menu.</p>`
+                <p>The <code>.navbar-expand-*</code> class dictates at which breakpoint the navigation expands.</p>`
             }
         ]
     },
@@ -270,22 +247,14 @@ h1 {
                 title: "1. The Mobile-First Mindset",
                 duration: "25 min",
                 summary: "Why designing for mobile first creates cleaner, faster web experiences.",
-                content: `<h3>Mobile-First Responsive Web Design</h3>
-                <p>Mobile-first design means writing base styles for small screens without media queries, then progressively layering complexity using <code>min-width</code> queries as the screen expands.</p>`
+                content: `<h3>Mobile-First Responsive Web Design</h3><p>Design base styles for small screens, then layer min-width queries as screens expand.</p>`
             },
             {
                 id: 2,
                 title: "2. CSS Media Queries Masterclass",
                 duration: "35 min",
                 summary: "Standard breakpoint conventions (576px, 768px, 992px, 1200px).",
-                content: `<h3>Crafting Media Queries</h3>
-                <pre class="bg-dark text-light p-3 rounded"><code>/* Base Mobile: 1 column */
-.course-grid { display: flex; flex-direction: column; }
-
-/* Tablet (min-width: 768px) */
-@media (min-width: 768px) {
-  .course-grid { flex-direction: row; flex-wrap: wrap; }
-}</code></pre>`
+                content: `<h3>Crafting Media Queries</h3><p>Use media queries to adapt flex direction, grid columns, and font sizes.</p>`
             }
         ]
     },
@@ -318,29 +287,21 @@ h1 {
                 title: "1. The Flex Container & Axes",
                 duration: "20 min",
                 summary: "display: flex, flex-direction: row vs column, and axis fundamentals.",
-                content: `<h3>Flex Container Basics</h3>
-                <p>Declaring <code>display: flex</code> transforms the parent into a flex container and all direct children into flex items. Items align along the primary main axis.</p>`
+                content: `<h3>Flex Container Basics</h3><p>Declaring <code>display: flex</code> transforms the parent into a flex container.</p>`
             },
             {
                 id: 2,
-                title: "2. Alignment & Spacing: justify-content & align-items",
+                title: "2. Alignment & Spacing",
                 duration: "30 min",
                 summary: "Center, space-between, space-around, space-evenly, and gap.",
-                content: `<h3>Centering Made Trivial</h3>
-                <pre class="bg-dark text-light p-3 rounded"><code>.hero-center {
-  display: flex;
-  justify-content: center; /* Main axis center */
-  align-items: center;     /* Cross axis center */
-  gap: 1.5rem;
-}</code></pre>`
+                content: `<h3>Centering and Alignment</h3><p>Control distribution along main and cross axes.</p>`
             },
             {
                 id: 3,
                 title: "3. Flex Item Sizing: grow, shrink, and basis",
                 duration: "35 min",
                 summary: "flex: 1 1 auto, flex-grow ratios, and responsive wrapping.",
-                content: `<h3>Flexbox Sizing Mechanics</h3>
-                <p><code>flex-grow: 1</code> instructs an item to consume leftover space, while <code>flex-grow: 2</code> consumes double the leftover space relative to its siblings.</p>`
+                content: `<h3>Flex Item Growth</h3><p><code>flex-grow: 1</code> absorbs available remaining space.</p>`
             }
         ]
     },
@@ -373,40 +334,21 @@ h1 {
                 title: "1. Grid Container & Fractional Units (fr)",
                 duration: "25 min",
                 summary: "Defining columns, rows, and gaps using modern fr units.",
-                content: `<h3>The Power of 2D Layouts</h3>
-                <p>Unlike Flexbox which operates in 1 dimension at a time, CSS Grid positions items along rows AND columns at the exact same moment.</p>
-                <pre class="bg-dark text-light p-3 rounded"><code>.dashboard {
-  display: grid;
-  grid-template-columns: 260px 1fr 1fr;
-  gap: 1.5rem;
-}</code></pre>`
+                content: `<h3>The Power of 2D Layouts</h3><p>Grid positions items along rows AND columns simultaneously.</p>`
             },
             {
                 id: 2,
                 title: "2. Responsive Grids with minmax & auto-fit",
                 duration: "30 min",
                 summary: "Building fully responsive grids without writing a single media query.",
-                content: `<h3>Zero-Media-Query Responsive Grids</h3>
-                <pre class="bg-dark text-light p-3 rounded"><code>.course-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
-}</code></pre>`
+                content: `<h3>Zero-Media-Query Grids</h3><p>Use auto-fit and minmax() for fluid columns.</p>`
             },
             {
                 id: 3,
                 title: "3. Layout Composition with grid-template-areas",
                 duration: "40 min",
                 summary: "Naming visual regions: 'header header' 'sidebar main' 'footer footer'.",
-                content: `<h3>Visual Layouts with Named Areas</h3>
-                <pre class="bg-dark text-light p-3 rounded"><code>.app-shell {
-  display: grid;
-  grid-template-areas:
-    "header header"
-    "nav    main"
-    "footer footer";
-  grid-template-columns: 240px 1fr;
-}</code></pre>`
+                content: `<h3>Named Grid Areas</h3><p>Build enterprise workspaces cleanly with named areas.</p>`
             }
         ]
     },
@@ -439,32 +381,21 @@ h1 {
                 title: "1. JavaScript Variables, Types & Syntax",
                 duration: "30 min",
                 summary: "let vs const, strings, numbers, booleans, and objects.",
-                content: `<h3>Modern JavaScript Syntax</h3>
-                <p>JavaScript runs natively in every modern web browser. It allows you to manipulate elements, respond to user actions, and store state locally.</p>`
+                content: `<h3>Modern JavaScript Syntax</h3><p>JavaScript executes natively in modern browsers to provide client-side interactivity.</p>`
             },
             {
                 id: 2,
                 title: "2. DOM Manipulation & Event Listeners",
                 duration: "45 min",
                 summary: "Selecting elements, adding event listeners, and updating classes.",
-                content: `<h3>Interacting with the Web Page</h3>
-                <pre class="bg-dark text-light p-3 rounded"><code>const enrollBtn = document.querySelector("#enrollBtn");
-enrollBtn.addEventListener("click", () => {
-  alert("Enrollment successful!");
-});</code></pre>`
+                content: `<h3>DOM Manipulation</h3><p>Connect user interactions directly to interface updates.</p>`
             },
             {
                 id: 3,
                 title: "3. LocalStorage Data Persistence",
                 duration: "35 min",
                 summary: "Saving, reading, and serializing JSON objects across browser sessions.",
-                content: `<h3>Persistent Client-Side Storage</h3>
-                <p>LocalStorage saves key-value string pairs directly inside the user's browser, persisting even after the page is refreshed.</p>
-                <pre class="bg-dark text-light p-3 rounded"><code>// Storing user data
-localStorage.setItem("user", JSON.stringify({ name: "Alex", progress: 85 }));
-
-// Reading user data
-const user = JSON.parse(localStorage.getItem("user"));</code></pre>`
+                content: `<h3>Persistent LocalStorage</h3><p>Store user state directly in the browser.</p>`
             }
         ]
     },
@@ -497,18 +428,14 @@ const user = JSON.parse(localStorage.getItem("user"));</code></pre>`
                 title: "1. The Utility-First Philosophy",
                 duration: "25 min",
                 summary: "Why utility classes speed up development and eliminate CSS bloat.",
-                content: `<h3>Why Tailwind CSS?</h3>
-                <p>Rather than authoring opinionated semantic class names like <code>.user-card</code>, Tailwind provides tiny atomic utility classes like <code>bg-white p-6 rounded-xl shadow-md</code>.</p>`
+                content: `<h3>Why Tailwind CSS?</h3><p>Compose UI rapidly using atomic classes.</p>`
             },
             {
                 id: 2,
                 title: "2. Responsive Prefixes: sm, md, lg",
                 duration: "30 min",
                 summary: "Mobile-first responsive design using Tailwind's breakpoint prefixes.",
-                content: `<h3>Mobile-First in Tailwind</h3>
-                <pre class="bg-dark text-light p-3 rounded"><code>&lt;div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"&gt;
-  &lt;!-- 1 col on mobile, 2 on tablet, 4 on desktop --&gt;
-&lt;/div&gt;</code></pre>`
+                content: `<h3>Responsive Prefixes</h3><p>Style across breakpoints with <code>sm:</code>, <code>md:</code>, and <code>lg:</code>.</p>`
             }
         ]
     },
@@ -541,16 +468,14 @@ const user = JSON.parse(localStorage.getItem("user"));</code></pre>`
                 title: "1. Application Architecture & Multi-Page State",
                 duration: "40 min",
                 summary: "Structuring multi-page SPAs and traditional websites with LocalStorage.",
-                content: `<h3>Multi-Page Web Architecture</h3>
-                <p>A great frontend application shares consistent navigation, centralized data stores, and synchronized state across distinct HTML documents.</p>`
+                content: `<h3>Application Architecture</h3><p>Manage cohesive frontend state across components and views.</p>`
             },
             {
                 id: 2,
                 title: "2. State Management with LocalStorage",
                 duration: "45 min",
                 summary: "Synchronizing enrolled courses, completed lessons, and user accounts.",
-                content: `<h3>Client-Side State Synchronization</h3>
-                <p>Learn how LearnHub saves enrolled courses, lesson progress, and wishlist data into a single source of truth in LocalStorage.</p>`
+                content: `<h3>State Synchronization</h3><p>Sync enrollments and lesson progress seamlessly.</p>`
             }
         ]
     },
@@ -583,23 +508,22 @@ const user = JSON.parse(localStorage.getItem("user"));</code></pre>`
                 title: "1. Typography, Scale & Readability",
                 duration: "25 min",
                 summary: "Font pairings, typographic scales, line heights, and letter spacing.",
-                content: `<h3>Typography: 90% of Web Design</h3>
-                <p>Good typography guides the user's eye effortlessly. Use high-contrast headings, readable body text (16px+), and adequate line height (1.5 - 1.7).</p>`
+                content: `<h3>Typography Fundamentals</h3><p>Establish high contrast and comfortable readability.</p>`
             },
             {
                 id: 2,
                 title: "2. Color Theory & Visual Hierarchy",
                 duration: "30 min",
                 summary: "The 60-30-10 rule, primary brand accents, and accessible contrast ratios.",
-                content: `<h3>Color Theory for Developers</h3>
-                <p>Use 60% dominant neutral background, 30% structural secondary, and 10% high-contrast accent color for calls to action.</p>`
+                content: `<h3>Color Theory</h3><p>Use 60% dominant neutral background, 30% structural secondary, and 10% accent.</p>`
             }
         ]
     }
 ];
 
 // =============================================================================
-// LOCALSTORAGE HELPER FUNCTIONS
+// USER-SCOPED LOCALSTORAGE STATE MANAGEMENT
+// New accounts always start 100% FRESH (0 enrolled, 0 progress, 0 wishlist)
 // =============================================================================
 
 const STORAGE_KEYS = {
@@ -610,6 +534,26 @@ const STORAGE_KEYS = {
     USERS: "learnhub_registered_users",
     CONTACT_MESSAGES: "learnhub_contact_messages"
 };
+
+// Get active user's email to scope data per account
+function getActiveUserEmail() {
+    try {
+        const userStr = localStorage.getItem(STORAGE_KEYS.CURRENT_USER);
+        if (userStr) {
+            const user = JSON.parse(userStr);
+            if (user && user.email) {
+                return user.email.toLowerCase().trim();
+            }
+        }
+    } catch (e) {}
+    return "guest";
+}
+
+function getUserScopedKey(baseKey) {
+    const email = getActiveUserEmail();
+    const safeEmail = email.replace(/[^a-z0-9]/g, '_');
+    return `${baseKey}_${safeEmail}`;
+}
 
 // Return all courses
 function getAllCourses() {
@@ -635,53 +579,87 @@ function filterCourses(category = "all", searchQuery = "") {
     });
 }
 
-// Get array of enrolled course IDs
+// Get array of enrolled course IDs for active user
+// ANY NEW ACCOUNT STARTS 100% EMPTY (FRESH)
 function getEnrolledCourseIds() {
     try {
-        const stored = localStorage.getItem(STORAGE_KEYS.ENROLLED);
-        return stored ? JSON.parse(stored) : [1, 3]; // Default seed with courses 1 & 3 for demo
+        const email = getActiveUserEmail();
+        const key = getUserScopedKey(STORAGE_KEYS.ENROLLED);
+        const stored = localStorage.getItem(key);
+        
+        if (stored !== null) {
+            return JSON.parse(stored);
+        }
+        
+        // Seed ONLY for the default demo account "alex@learnhub.edu"
+        if (email === "alex@learnhub.edu") {
+            const demoCourses = [1, 3];
+            localStorage.setItem(key, JSON.stringify(demoCourses));
+            return demoCourses;
+        }
+
+        // All other users (freshly created accounts) start with 0 enrolled courses!
+        return [];
     } catch (e) {
-        return [1, 3];
+        return [];
     }
 }
 
 // Enroll in course
 function enrollInCourse(courseId) {
     const id = parseInt(courseId, 10);
+    const key = getUserScopedKey(STORAGE_KEYS.ENROLLED);
     const enrolled = getEnrolledCourseIds();
     if (!enrolled.includes(id)) {
         enrolled.push(id);
-        localStorage.setItem(STORAGE_KEYS.ENROLLED, JSON.stringify(enrolled));
+        localStorage.setItem(key, JSON.stringify(enrolled));
     }
     return true;
 }
 
-// Check if user is enrolled
+// Check if active user is enrolled
 function isEnrolled(courseId) {
     const id = parseInt(courseId, 10);
     return getEnrolledCourseIds().includes(id);
 }
 
-// Get Wishlist course IDs
+// Get Wishlist course IDs for active user
+// Fresh accounts start with 0 wishlist items!
 function getWishlistCourseIds() {
     try {
-        const stored = localStorage.getItem(STORAGE_KEYS.WISHLIST);
-        return stored ? JSON.parse(stored) : [2, 7]; // Default seed with courses 2 & 7
+        const email = getActiveUserEmail();
+        const key = getUserScopedKey(STORAGE_KEYS.WISHLIST);
+        const stored = localStorage.getItem(key);
+        
+        if (stored !== null) {
+            return JSON.parse(stored);
+        }
+
+        // Seed ONLY for demo user alex
+        if (email === "alex@learnhub.edu") {
+            const demoWish = [2, 7];
+            localStorage.setItem(key, JSON.stringify(demoWish));
+            return demoWish;
+        }
+
+        // All new accounts start with empty wishlist
+        return [];
     } catch (e) {
-        return [2, 7];
+        return [];
     }
 }
 
 // Toggle Wishlist
 function toggleWishlist(courseId) {
     const id = parseInt(courseId, 10);
+    const key = getUserScopedKey(STORAGE_KEYS.WISHLIST);
     let wishlist = getWishlistCourseIds();
     if (wishlist.includes(id)) {
         wishlist = wishlist.filter(item => item !== id);
     } else {
         wishlist.push(id);
     }
-    localStorage.setItem(STORAGE_KEYS.WISHLIST, JSON.stringify(wishlist));
+    localStorage.setItem(key, JSON.stringify(wishlist));
     return wishlist.includes(id);
 }
 
@@ -691,12 +669,28 @@ function isWishlisted(courseId) {
 }
 
 // Get completed lessons map: { courseId: [lessonId1, lessonId2] }
+// Fresh accounts start with 0 completed lessons!
 function getCompletedLessonsMap() {
     try {
-        const stored = localStorage.getItem(STORAGE_KEYS.PROGRESS);
-        return stored ? JSON.parse(stored) : { "1": [1, 2], "3": [1] }; // Default demo progress
+        const email = getActiveUserEmail();
+        const key = getUserScopedKey(STORAGE_KEYS.PROGRESS);
+        const stored = localStorage.getItem(key);
+        
+        if (stored !== null) {
+            return JSON.parse(stored);
+        }
+
+        // Seed ONLY for demo user alex
+        if (email === "alex@learnhub.edu") {
+            const demoMap = { "1": [1, 2], "3": [1] };
+            localStorage.setItem(key, JSON.stringify(demoMap));
+            return demoMap;
+        }
+
+        // New accounts start with empty progress
+        return {};
     } catch (e) {
-        return { "1": [1, 2], "3": [1] };
+        return {};
     }
 }
 
@@ -704,13 +698,14 @@ function getCompletedLessonsMap() {
 function markLessonComplete(courseId, lessonId) {
     const cId = courseId.toString();
     const lId = parseInt(lessonId, 10);
+    const key = getUserScopedKey(STORAGE_KEYS.PROGRESS);
     const map = getCompletedLessonsMap();
     if (!map[cId]) {
         map[cId] = [];
     }
     if (!map[cId].includes(lId)) {
         map[cId].push(lId);
-        localStorage.setItem(STORAGE_KEYS.PROGRESS, JSON.stringify(map));
+        localStorage.setItem(key, JSON.stringify(map));
     }
     return map[cId];
 }
