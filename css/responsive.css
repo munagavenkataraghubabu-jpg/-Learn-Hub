@@ -1,0 +1,79 @@
+/* ==========================================================================
+   LEARNHUB - RESPONSIVE STYLESHEET (MEDIA QUERIES)
+   Targeting:
+   - Mobile: 320px to 576px
+   - Tablet: 577px to 992px
+   - Desktop: 993px and above
+   ========================================================================== */
+
+/* Tablet & Mobile Breakpoints (max-width: 992px) */
+@media screen and (max-width: 992px) {
+    .learn-app-layout {
+        grid-template-areas:
+            "video-area"
+            "content-area"
+            "sidebar-area";
+        grid-template-columns: 1fr;
+    }
+
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .grid-courses-showcase {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Mobile Screens (max-width: 576px) */
+@media screen and (max-width: 576px) {
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .gradient-hero {
+        padding: 3.5rem 0;
+        text-align: center;
+    }
+
+    .hero-buttons-wrapper {
+        justify-content: center;
+    }
+
+    .stats-flex-container {
+        flex-direction: column;
+    }
+
+    .stat-item {
+        flex-basis: 100%;
+    }
+
+    .grid-courses-showcase {
+        grid-template-columns: 1fr;
+    }
+
+    .filter-pills-container {
+        overflow-x: auto;
+        white-space: nowrap;
+        padding-bottom: 0.5rem;
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .fixed-back-to-top {
+        bottom: 1.25rem;
+        right: 1.25rem;
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+
+    .card-footer-buttons {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .card-footer-buttons .btn {
+        width: 100%;
+    }
+}

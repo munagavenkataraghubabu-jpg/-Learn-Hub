@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240" width="100%" height="100%">
+  <defs>
+    <linearGradient id="wdBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0891b2"/>
+      <stop offset="100%" stop-color="#0e7490"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="240" fill="url(#wdBg)"/>
+  <!-- Palette & Ruler -->
+  <g transform="translate(140, 35)">
+    <circle cx="60" cy="55" r="45" fill="#ffffff"/>
+    <circle cx="45" cy="40" r="10" fill="#ef4444"/>
+    <circle cx="75" cy="40" r="10" fill="#3b82f6"/>
+    <circle cx="50" cy="70" r="10" fill="#10b981"/>
+    <circle cx="80" cy="70" r="10" fill="#f59e0b"/>
+  </g>
+  <text x="200" y="210" fill="#ffffff" font-size="18" font-family="system-ui, sans-serif" font-weight="bold" text-anchor="middle">Web Design Fundamentals</text>
+</svg>

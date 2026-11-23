@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tailwind CSS Showcase | LearnHub</title>
+    
+    <!-- Official Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Bootstrap Icons (for icon consistency) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <!-- Custom Tailwind Showcase CSS -->
+    <link rel="stylesheet" href="css/tailwind-showcase.css">
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased">
+
+    <!-- ===================================================================
+         TAILWIND NAVBAR: flex, items-center, justify-between, responsive
+         =================================================================== -->
+    <header class="bg-slate-900 text-white sticky top-0 z-50 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Brand Logo -->
+                <a href="index.html" class="flex items-center space-x-2 no-underline text-white">
+                    <span class="w-9 h-9 rounded-lg bg-indigo-600 flex items-center justify-center font-bold text-white shadow-sm">
+                        <i class="bi bi-mortarboard-fill text-lg"></i>
+                    </span>
+                    <span class="font-extrabold text-xl tracking-tight">Learn<span class="text-indigo-400">Hub</span> <span class="text-xs bg-indigo-500/30 text-indigo-300 px-2 py-0.5 rounded-full uppercase ml-1 border border-indigo-400/30">Tailwind</span></span>
+                </a>
+
+                <!-- Navigation Links -->
+                <nav class="hidden md:flex items-center space-x-1 sm:space-x-4 text-sm font-semibold">
+                    <a href="index.html" class="text-slate-300 hover:text-white px-3 py-2 rounded-md transition duration-150">Home</a>
+                    <a href="courses.html" class="text-slate-300 hover:text-white px-3 py-2 rounded-md transition duration-150">Courses</a>
+                    <a href="about.html" class="text-slate-300 hover:text-white px-3 py-2 rounded-md transition duration-150">About</a>
+                    <a href="contact.html" class="text-slate-300 hover:text-white px-3 py-2 rounded-md transition duration-150">Contact</a>
+                    <a href="tailwind.html" class="bg-indigo-600 text-white px-3.5 py-2 rounded-md font-bold">Tailwind Demo</a>
+                </nav>
+
+                <!-- Action Button -->
+                <div class="flex items-center space-x-3">
+                    <a href="courses.html" class="bg-indigo-600 hover:bg-indigo-500 text-white text-xs sm:text-sm font-semibold px-4 py-2 rounded-lg shadow transition duration-150">
+                        Back to Main Site &rarr;
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===================================================================
+         TAILWIND HERO SECTION: Responsive typography, gradient, flexbox
+         =================================================================== -->
+    <section class="relative bg-gradient-to-br from-indigo-950 via-slate-900 to-indigo-900 text-white py-16 sm:py-24">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <span class="inline-block py-1 px-3.5 rounded-full bg-indigo-500/20 text-indigo-300 text-xs font-semibold tracking-wider uppercase mb-4 border border-indigo-500/30 tw-pulse-pill">
+                Tailwind CSS Utility-First Architecture
+            </span>
+            <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight mb-6">
+                Rapid Styling with Utility Classes
+            </h1>
+            <p class="text-base sm:text-lg md:text-xl text-slate-300 max-w-3xl mx-auto mb-8">
+                This dedicated showcase demonstrates LearnHub using Tailwind CSS. Experience utility tokens for colors, responsive flex and grid layouts, and hover transitions.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#cards-grid" class="inline-flex items-center justify-center bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-6 py-3 rounded-xl shadow-lg transition duration-200">
+                    <i class="bi bi-grid-3x3-gap-fill mr-2"></i> View Responsive Grid
+                </a>
+                <a href="index.html" class="inline-flex items-center justify-center bg-slate-800 hover:bg-slate-700 text-white font-semibold px-6 py-3 rounded-xl border border-slate-700 transition duration-200">
+                    <i class="bi bi-bootstrap-fill text-purple-400 mr-2"></i> Compare with Bootstrap 5
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================================
+         TAILWIND RESPONSIVE GRID SECTION (sm:grid-cols-2, lg:grid-cols-3)
+         =================================================================== -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        
+        <div class="border-b border-slate-200 pb-4 mb-10 flex flex-col sm:flex-row sm:items-end justify-between">
+            <div>
+                <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">Tailwind Component Cards</h2>
+                <p class="text-slate-600 text-sm mt-1">Multi-device responsive cards constructed exclusively with Tailwind utility classes.</p>
+            </div>
+            <span class="text-xs font-semibold uppercase tracking-wider text-indigo-600 mt-2 sm:mt-0">Breakpoints: sm (640px) | md (768px) | lg (1024px)</span>
+        </div>
+
+        <!-- 3-Column Responsive Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-16" id="cards-grid">
+            
+            <!-- Tailwind Card 1 -->
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden flex flex-col">
+                <div class="h-44 bg-gradient-to-r from-orange-500 to-amber-600 p-6 flex items-center justify-center text-white text-center">
+                    <div>
+                        <span class="text-4xl block mb-1">🏷️</span>
+                        <span class="font-bold text-lg tracking-wide">HTML5 Semantics</span>
+                    </div>
+                </div>
+                <div class="p-6 flex-1 flex flex-col">
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="bg-orange-100 text-orange-700 text-xs font-bold px-2.5 py-1 rounded-full uppercase">Markup</span>
+                        <span class="text-xs text-slate-500 font-semibold">4 Hours</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">Introduction to HTML</h3>
+                    <p class="text-slate-600 text-sm mb-4 flex-1">
+                        Accessible forms, document skeleton, and semantic layouts built using modern W3C standards.
+                    </p>
+                    <div class="pt-4 border-t border-slate-100 flex justify-between items-center">
+                        <span class="text-indigo-600 font-extrabold text-lg">Free</span>
+                        <a href="course-details.html?id=1" class="bg-slate-900 hover:bg-indigo-600 text-white text-xs font-bold px-4 py-2 rounded-lg transition">View Course</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tailwind Card 2 -->
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden flex flex-col">
+                <div class="h-44 bg-gradient-to-r from-blue-600 to-cyan-600 p-6 flex items-center justify-center text-white text-center">
+                    <div>
+                        <span class="text-4xl block mb-1">🎨</span>
+                        <span class="font-bold text-lg tracking-wide">CSS3 Box Model</span>
+                    </div>
+                </div>
+                <div class="p-6 flex-1 flex flex-col">
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="bg-blue-100 text-blue-700 text-xs font-bold px-2.5 py-1 rounded-full uppercase">Styling</span>
+                        <span class="text-xs text-slate-500 font-semibold">5.5 Hours</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">Introduction to CSS</h3>
+                    <p class="text-slate-600 text-sm mb-4 flex-1">
+                        Master margin, padding, border, specificity, gradients, and box-sizing: border-box mechanics.
+                    </p>
+                    <div class="pt-4 border-t border-slate-100 flex justify-between items-center">
+                        <span class="text-indigo-600 font-extrabold text-lg">$19</span>
+                        <a href="course-details.html?id=2" class="bg-slate-900 hover:bg-indigo-600 text-white text-xs font-bold px-4 py-2 rounded-lg transition">View Course</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tailwind Card 3 -->
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden flex flex-col">
+                <div class="h-44 bg-gradient-to-r from-teal-600 to-emerald-600 p-6 flex items-center justify-center text-white text-center">
+                    <div>
+                        <span class="text-4xl block mb-1">⚡</span>
+                        <span class="font-bold text-lg tracking-wide">Tailwind CSS</span>
+                    </div>
+                </div>
+                <div class="p-6 flex-1 flex flex-col">
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="bg-teal-100 text-teal-700 text-xs font-bold px-2.5 py-1 rounded-full uppercase">Utility-First</span>
+                        <span class="text-xs text-slate-500 font-semibold">5 Hours</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">Tailwind CSS Mastery</h3>
+                    <p class="text-slate-600 text-sm mb-4 flex-1">
+                        Craft rapid user interfaces using responsive prefixes, flexbox utilities, and custom theme tokens.
+                    </p>
+                    <div class="pt-4 border-t border-slate-100 flex justify-between items-center">
+                        <span class="text-indigo-600 font-extrabold text-lg">$29</span>
+                        <a href="course-details.html?id=8" class="bg-slate-900 hover:bg-indigo-600 text-white text-xs font-bold px-4 py-2 rounded-lg transition">View Course</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ===================================================================
+             TAILWIND UTILITY SHOWCASE: Flexbox, Grid, Borders, Badges
+             =================================================================== -->
+        <section class="bg-indigo-900 text-white rounded-3xl p-8 sm:p-12 shadow-xl mb-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <span class="text-indigo-300 font-bold uppercase tracking-wider text-xs">Framework Contrast</span>
+                    <h3 class="text-2xl sm:text-3xl font-extrabold mt-2 mb-4">Why LearnHub Teaches Both Bootstrap 5 and Tailwind</h3>
+                    <p class="text-indigo-100 text-sm leading-relaxed mb-6">
+                        Bootstrap provides prebuilt components for rapid layout prototyping, while Tailwind empowers you to craft custom atomic designs with precision. Learning both prepares you for any frontend team.
+                    </p>
+                    <div class="flex flex-wrap gap-3">
+                        <a href="courses.html" class="bg-white text-indigo-900 hover:bg-indigo-50 font-bold px-5 py-2.5 rounded-lg text-sm shadow transition">
+                            Explore Bootstrap Courses
+                        </a>
+                        <a href="course-details.html?id=8" class="bg-indigo-700 hover:bg-indigo-600 text-white font-semibold px-5 py-2.5 rounded-lg text-sm border border-indigo-500 transition">
+                            Start Tailwind Course
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-indigo-950/70 border border-indigo-700/50 p-6 rounded-2xl">
+                    <h4 class="font-bold text-lg mb-3 flex items-center text-teal-300">
+                        <i class="bi bi-code-square mr-2"></i> Tailwind Utility Highlights
+                    </h4>
+                    <ul class="space-y-3 text-sm text-indigo-200">
+                        <li class="flex items-center"><i class="bi bi-check-circle-fill text-teal-400 mr-2"></i> <code class="bg-indigo-900 px-2 py-0.5 rounded text-white text-xs mr-2">flex justify-between</code> Flexible 1D axis alignment</li>
+                        <li class="flex items-center"><i class="bi bi-check-circle-fill text-teal-400 mr-2"></i> <code class="bg-indigo-900 px-2 py-0.5 rounded text-white text-xs mr-2">grid grid-cols-3</code> Proportional 2D grid matrix</li>
+                        <li class="flex items-center"><i class="bi bi-check-circle-fill text-teal-400 mr-2"></i> <code class="bg-indigo-900 px-2 py-0.5 rounded text-white text-xs mr-2">sm: md: lg:</code> Zero-media-query responsive breakpoints</li>
+                        <li class="flex items-center"><i class="bi bi-check-circle-fill text-teal-400 mr-2"></i> <code class="bg-indigo-900 px-2 py-0.5 rounded text-white text-xs mr-2">hover:scale-105</code> Hardware-accelerated transforms</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Semantic Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-8 border-t border-slate-800 text-center text-sm">
+        <div class="max-w-7xl mx-auto px-4">
+            <p class="text-slate-200 font-medium mb-1">&copy; 2026 LearnHub. Tailwind CSS Responsive Architecture Showcase.</p>
+            <p class="text-xs text-slate-500">Built as part of the LearnHub Student Learning Platform Portfolio.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

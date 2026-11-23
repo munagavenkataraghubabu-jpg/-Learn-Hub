@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240" width="100%" height="100%">
+  <defs>
+    <linearGradient id="respBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#059669"/>
+      <stop offset="100%" stop-color="#047857"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="240" fill="url(#respBg)"/>
+  <!-- Desktop Screen -->
+  <rect x="80" y="40" width="160" height="105" rx="8" fill="#ffffff" opacity="0.95"/>
+  <rect x="88" y="48" width="144" height="85" rx="4" fill="#0f172a"/>
+  <rect x="150" y="145" width="20" height="15" fill="#e2e8f0"/>
+  <rect x="135" y="160" width="50" height="6" rx="3" fill="#e2e8f0"/>
+  <!-- Tablet -->
+  <rect x="220" y="70" width="70" height="95" rx="6" fill="#ffffff"/>
+  <rect x="225" y="76" width="60" height="80" rx="3" fill="#1e293b"/>
+  <!-- Phone -->
+  <rect x="275" y="95" width="45" height="75" rx="6" fill="#ffffff"/>
+  <rect x="279" y="101" width="37" height="62" rx="3" fill="#0f172a"/>
+  <text x="200" y="210" fill="#ffffff" font-size="18" font-family="system-ui, sans-serif" font-weight="bold" text-anchor="middle">Responsive Web Design</text>
+</svg>

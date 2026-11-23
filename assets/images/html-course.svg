@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240" width="100%" height="100%">
+  <defs>
+    <linearGradient id="htmlBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ea580c"/>
+      <stop offset="100%" stop-color="#c2410c"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="240" fill="url(#htmlBg)"/>
+  <circle cx="340" cy="50" r="80" fill="#ffffff" opacity="0.08"/>
+  <circle cx="60" cy="190" r="60" fill="#ffffff" opacity="0.06"/>
+  <!-- Code Icon Shield -->
+  <g transform="translate(140, 40)">
+    <polygon points="60,10 110,30 100,120 60,140 20,120 10,30" fill="#ffffff" opacity="0.95"/>
+    <polygon points="60,20 100,36 92,112 60,128 60,20" fill="#f97316"/>
+    <polygon points="60,20 28,36 36,112 60,128 60,20" fill="#fb923c"/>
+    <!-- HTML5 Number 5 -->
+    <path d="M40,50 L80,50 L77,65 L55,65 L57,80 L75,80 L72,110 L60,115 L48,110 L47,95 L37,95 L39,118 L60,125 L81,118 L86,40 L40,40 Z" fill="#ffffff"/>
+  </g>
+  <text x="200" y="210" fill="#ffffff" font-size="20" font-family="system-ui, sans-serif" font-weight="bold" text-anchor="middle">&lt;HTML5 /&gt; Semantic Markup</text>
+</svg>

@@ -1,0 +1,29 @@
+/* ==========================================================================
+   LEARNHUB - TAILWIND SHOWCASE HELPER STYLES
+   Used specifically on tailwind.html
+   ========================================================================== */
+
+/* Smooth scroll & base styling */
+.tailwind-container {
+    max-width: 1240px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+}
+
+/* Glow animation for showcase badge */
+@keyframes twPulse {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.85;
+        transform: scale(1.03);
+    }
+}
+
+.tw-pulse-pill {
+    animation: twPulse 3s ease-in-out infinite;
+}

@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="heroBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4f46e5" />
+      <stop offset="100%" stop-color="#06b6d4" />
+    </linearGradient>
+    <linearGradient id="screenGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#0f172a" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+  <!-- Background glow circles -->
+  <circle cx="480" cy="120" r="100" fill="#a5b4fc" opacity="0.3" filter="blur(30px)"/>
+  <circle cx="120" cy="360" r="120" fill="#67e8f9" opacity="0.25" filter="blur(40px)"/>
+  
+  <!-- Desk & Laptop Base -->
+  <rect x="70" y="380" width="460" height="12" rx="6" fill="#cbd5e1"/>
+  
+  <!-- Main Laptop Screen -->
+  <g filter="url(#shadow)">
+    <rect x="110" y="70" width="380" height="250" rx="16" fill="url(#screenGrad)" stroke="#38bdf8" stroke-width="2"/>
+    <!-- Laptop Top Bar -->
+    <rect x="110" y="70" width="380" height="32" rx="16" fill="#334155"/>
+    <rect x="110" y="86" width="380" height="16" fill="#334155"/>
+    <circle cx="130" cy="86" r="5" fill="#ef4444"/>
+    <circle cx="146" cy="86" r="5" fill="#f59e0b"/>
+    <circle cx="162" cy="86" r="5" fill="#10b981"/>
+    <rect x="190" y="78" width="220" height="16" rx="8" fill="#1e293b"/>
+    <text x="300" y="90" fill="#94a3b8" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">learnhub.edu/workspace</text>
+    
+    <!-- Code Editor Area -->
+    <rect x="125" y="115" width="160" height="190" rx="8" fill="#0f172a"/>
+    <text x="140" y="140" fill="#ec4899" font-size="12" font-family="monospace">&lt;header&gt;</text>
+    <text x="155" y="160" fill="#38bdf8" font-size="11" font-family="monospace">LearnHub</text>
+    <text x="140" y="180" fill="#ec4899" font-size="12" font-family="monospace">&lt;/header&gt;</text>
+    <text x="140" y="210" fill="#a855f7" font-size="12" font-family="monospace">.course-card {</text>
+    <text x="155" y="230" fill="#22c55e" font-size="11" font-family="monospace">display: grid;</text>
+    <text x="155" y="250" fill="#22c55e" font-size="11" font-family="monospace">box-shadow: 0 4px;</text>
+    <text x="140" y="270" fill="#a855f7" font-size="12" font-family="monospace">}</text>
+
+    <!-- Preview Area -->
+    <rect x="295" y="115" width="180" height="190" rx="8" fill="#ffffff"/>
+    <rect x="310" y="130" width="150" height="24" rx="4" fill="#4f46e5"/>
+    <text x="385" y="146" fill="#ffffff" font-size="11" font-family="system-ui, sans-serif" font-weight="bold" text-anchor="middle">Learn Skills Now</text>
+    
+    <rect x="310" y="165" width="70" height="60" rx="6" fill="#f1f5f9" stroke="#cbd5e1"/>
+    <rect x="390" y="165" width="70" height="60" rx="6" fill="#f1f5f9" stroke="#cbd5e1"/>
+    <circle cx="345" cy="190" r="12" fill="#38bdf8"/>
+    <circle cx="425" cy="190" r="12" fill="#ec4899"/>
+    
+    <rect x="310" y="240" width="150" height="10" rx="3" fill="#e2e8f0"/>
+    <rect x="310" y="258" width="100" height="10" rx="3" fill="#e2e8f0"/>
+    <rect x="310" y="278" width="60" height="18" rx="4" fill="#10b981"/>
+    <text x="340" y="291" fill="#ffffff" font-size="9" font-family="system-ui, sans-serif" font-weight="bold" text-anchor="middle">Enroll</text>
+  </g>
+
+  <!-- Laptop Base Stand -->
+  <polygon points="260,320 340,320 360,380 240,380" fill="#94a3b8"/>
+  <rect x="220" y="375" width="160" height="8" rx="4" fill="#64748b"/>
+
+  <!-- Floating Achievement Badge Left -->
+  <g transform="translate(40, 150)" filter="url(#shadow)">
+    <rect width="130" height="50" rx="10" fill="#ffffff"/>
+    <circle cx="28" cy="25" r="16" fill="#fef3c7"/>
+    <text x="28" y="31" font-size="16" text-anchor="middle">🎓</text>
+    <text x="52" y="22" font-size="11" font-family="system-ui, sans-serif" font-weight="bold" fill="#0f172a">100% Free</text>
+    <text x="52" y="36" font-size="9" font-family="system-ui, sans-serif" fill="#64748b">Verified Courses</text>
+  </g>
+
+  <!-- Floating Progress Pill Right -->
+  <g transform="translate(420, 260)" filter="url(#shadow)">
+    <rect width="140" height="56" rx="12" fill="#ffffff"/>
+    <circle cx="30" cy="28" r="16" fill="#dcfce7"/>
+    <text x="30" y="34" font-size="16" text-anchor="middle">🚀</text>
+    <text x="54" y="24" font-size="11" font-family="system-ui, sans-serif" font-weight="bold" fill="#0f172a">Active Students</text>
+    <text x="54" y="40" font-size="10" font-family="system-ui, sans-serif" font-weight="bold" fill="#16a34a">15,000+ Enrolled</text>
+  </g>
+</svg>

@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LearnHub – Student Learning Portal (LMS)</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Custom Portal Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+    <!-- ===================================================================
+         1. PORTAL APPLICATION TOPBAR (Brand, Global Search, Streak, User)
+         =================================================================== -->
+    <header class="portal-header">
+        <div class="container-fluid px-3 px-md-4">
+            <div class="d-flex justify-content-between align-items-center gap-3">
+                
+                <!-- Brand & Platform Badge -->
+                <div class="d-flex align-items-center gap-2">
+                    <a href="javascript:void(0)" onclick="switchPortalTab('dashboard')" class="d-flex align-items-center gap-2 text-decoration-none text-white">
+                        <span class="rounded-3 bg-primary text-white d-flex align-items-center justify-content-center shadow-sm" style="width: 36px; height: 36px;">
+                            <i class="bi bi-mortarboard-fill fs-5"></i>
+                        </span>
+                        <span class="fs-4 fw-bold tracking-tight">Learn<span class="text-primary" style="color: #818cf8 !important;">Hub</span></span>
+                    </a>
+                    <span class="badge bg-secondary bg-opacity-50 text-light border border-secondary border-opacity-50 rounded-pill small ms-1 d-none d-md-inline-block">Student Portal v2.0</span>
+                </div>
+
+                <!-- Global Portal Search Bar -->
+                <div class="d-none d-lg-block flex-grow-1 mx-4" style="max-width: 480px;">
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text bg-dark border-secondary text-secondary border-end-0"><i class="bi bi-search"></i></span>
+                        <input type="text" id="globalSearchInput" class="form-control bg-dark text-white border-secondary border-start-0" placeholder="Search courses, lessons, topics (e.g. Flexbox, Grid, HTML)..." oninput="handleGlobalSearch(this.value)">
+                    </div>
+                </div>
+
+                <!-- Portal Quick Stats & Student Profile -->
+                <div class="d-flex align-items-center gap-3">
+                    
+                    <!-- Daily Streak Widget -->
+                    <div class="d-none d-sm-flex align-items-center gap-1 bg-dark border border-secondary border-opacity-50 px-2 py-1 rounded-pill small" title="Current Learning Streak">
+                        <span class="text-warning">🔥</span>
+                        <strong class="text-white">5 Day Streak</strong>
+                    </div>
+
+                    <!-- Quick Enrolled Badge -->
+                    <div class="d-none d-md-flex align-items-center gap-1 bg-dark border border-secondary border-opacity-50 px-2 py-1 rounded-pill small">
+                        <i class="bi bi-book-half text-primary"></i>
+                        <span class="text-light" id="topbarEnrolledCount">2 Active</span>
+                    </div>
+
+                    <!-- Notification Bell -->
+                    <button class="btn btn-dark btn-sm text-secondary border-0 position-relative p-1" title="Notifications" onclick="showToast('You have 2 upcoming study units due this week!', 'info')">
+                        <i class="bi bi-bell fs-5 text-light"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-dark rounded-circle"></span>
+                    </button>
+
+                    <!-- Student Profile Dropdown -->
+                    <div class="dropdown">
+                        <button class="btn btn-dark border-secondary border-opacity-50 dropdown-toggle d-flex align-items-center gap-2 py-1 px-2 rounded-pill" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center fw-bold" style="width: 28px; height: 28px; font-size: 0.8rem;" id="topbarUserAvatar">
+                                A
+                            </span>
+                            <span class="d-none d-sm-inline small text-white fw-semibold" id="topbarUserName">Alex Morgan</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end shadow border-0">
+                            <li class="px-3 py-2 border-bottom">
+                                <small class="text-muted d-block">Signed in as</small>
+                                <strong class="text-dark small" id="topbarUserEmail">alex@learnhub.edu</strong>
+                            </li>
+                            <li><a class="dropdown-item py-2 small" href="javascript:void(0)" onclick="switchPortalTab('dashboard')"><i class="bi bi-speedometer2 text-primary me-2"></i>My Dashboard</a></li>
+                            <li><a class="dropdown-item py-2 small" href="javascript:void(0)" onclick="switchPortalTab('classroom')"><i class="bi bi-play-circle text-success me-2"></i>Study Desk</a></li>
+                            <li><a class="dropdown-item py-2 small" href="javascript:void(0)" onclick="switchPortalTab('explorer')"><i class="bi bi-compass text-info me-2"></i>Course Catalog</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><button class="dropdown-item py-2 small text-danger" onclick="logoutUser()"><i class="bi bi-box-arrow-right me-2"></i>Sign Out</button></li>
+                        </ul>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <!-- ===================================================================
+         2. PORTAL NAVIGATION TABS BAR (LMS Application Tab Bar)
+         =================================================================== -->
+    <nav class="portal-nav-bar">
+        <div class="container-fluid px-3 px-md-4">
+            <div class="d-flex align-items-center overflow-auto" id="portalTabsNav">
+                <button class="portal-nav-tab active" data-tab="dashboard" onclick="switchPortalTab('dashboard')">
+                    <i class="bi bi-grid-1x2-fill"></i> Dashboard
+                </button>
+                <button class="portal-nav-tab" data-tab="my-courses" onclick="switchPortalTab('my-courses')">
+                    <i class="bi bi-journal-check"></i> My Courses
+                </button>
+                <button class="portal-nav-tab" data-tab="explorer" onclick="switchPortalTab('explorer')">
+                    <i class="bi bi-compass"></i> Course Catalog (10)
+                </button>
+                <button class="portal-nav-tab text-success" data-tab="classroom" onclick="switchPortalTab('classroom')">
+                    <i class="bi bi-laptop-fill"></i> Study Desk / Classroom
+                </button>
+                <button class="portal-nav-tab text-primary" data-tab="lab" onclick="switchPortalTab('lab')">
+                    <i class="bi bi-code-slash"></i> Tailwind &amp; Bootstrap Lab
+                </button>
+                <button class="portal-nav-tab" data-tab="about" onclick="switchPortalTab('about')">
+                    <i class="bi bi-info-circle"></i> Faculty &amp; About
+                </button>
+                <button class="portal-nav-tab" data-tab="support" onclick="switchPortalTab('support')">
+                    <i class="bi bi-chat-left-dots"></i> Student Support
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===================================================================
+         MAIN PORTAL WORKSPACE (Single-Page App Panes)
+         =================================================================== -->
+    <main class="container-fluid px-3 px-md-4 py-4">
+
+        <!-- ---------------------------------------------------------------
+             PANE 1: STUDENT DASHBOARD
+             --------------------------------------------------------------- -->
+        <section class="portal-pane active" id="pane-dashboard">
+            
+            <!-- Student Hero Widget: Current In-Progress Course -->
+            <div class="portal-card mb-4 text-white" style="background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 60%, #312e81 100%);">
+                <div class="row align-items-center g-4">
+                    <div class="col-lg-8">
+                        <span class="badge bg-primary px-3 py-1 rounded-pill mb-2"><i class="bi bi-play-circle-fill me-1"></i>Active Learning Unit</span>
+                        <h1 class="h3 fw-bold text-white mb-2" id="heroActiveCourseTitle">Introduction to HTML</h1>
+                        <p class="text-light opacity-75 small mb-3" id="heroActiveCourseDesc">Master elements, document structure, semantic markup, and accessible forms.</p>
+                        
+                        <div class="d-flex align-items-center gap-3 mb-3" style="max-width: 450px;">
+                            <div class="progress-bar-custom flex-grow-1" style="height: 10px;">
+                                <div class="progress-fill" id="heroActiveProgressFill" style="width: 40%;"></div>
+                            </div>
+                            <span class="small fw-bold text-info" id="heroActiveProgressText">40% Finished</span>
+                        </div>
+
+                        <div class="d-flex gap-2 flex-wrap">
+                            <button class="btn btn-theme-primary btn-sm px-4 py-2" onclick="openClassroomWithCourse(1)">
+                                <i class="bi bi-play-fill fs-5"></i> Resume Lesson
+                            </button>
+                            <button class="btn btn-outline-light btn-sm px-3 py-2" onclick="switchPortalTab('explorer')">
+                                Browse All 10 Courses
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 text-lg-end d-none d-lg-block">
+                        <div class="p-3 rounded-4 bg-white bg-opacity-10 border border-white border-opacity-15 d-inline-block text-start" style="width: 260px;">
+                            <div class="d-flex align-items-center gap-2 mb-2">
+                                <span class="fs-4">🏆</span>
+                                <div>
+                                    <strong class="d-block text-white small">Weekly Goal</strong>
+                                    <small class="text-light opacity-75">4 of 5 lessons completed</small>
+                                </div>
+                            </div>
+                            <div class="progress-bar-custom" style="height: 6px;">
+                                <div class="progress-fill bg-warning" style="width: 80%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Portal Metric Widgets Row -->
+            <div class="row g-4 mb-4">
+                <div class="col-sm-6 col-xl-3">
+                    <div class="portal-card h-100 d-flex align-items-center gap-3">
+                        <div class="rounded-3 bg-primary bg-opacity-10 text-primary p-3 fs-3"><i class="bi bi-journal-bookmark-fill"></i></div>
+                        <div>
+                            <h2 class="h4 fw-bold text-dark mb-0" id="dashMetricEnrolled">2</h2>
+                            <span class="text-muted small">Enrolled Courses</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-xl-3">
+                    <div class="portal-card h-100 d-flex align-items-center gap-3">
+                        <div class="rounded-3 bg-success bg-opacity-10 text-success p-3 fs-3"><i class="bi bi-patch-check-fill"></i></div>
+                        <div>
+                            <h2 class="h4 fw-bold text-dark mb-0" id="dashMetricCompleted">0</h2>
+                            <span class="text-muted small">Completed Courses</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-xl-3">
+                    <div class="portal-card h-100 d-flex align-items-center gap-3">
+                        <div class="rounded-3 bg-info bg-opacity-10 text-info p-3 fs-3"><i class="bi bi-check2-circle"></i></div>
+                        <div>
+                            <h2 class="h4 fw-bold text-dark mb-0" id="dashMetricLessons">3</h2>
+                            <span class="text-muted small">Lessons Finished</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-xl-3">
+                    <div class="portal-card h-100 d-flex align-items-center gap-3">
+                        <div class="rounded-3 bg-warning bg-opacity-10 text-warning p-3 fs-3"><i class="bi bi-fire"></i></div>
+                        <div>
+                            <h2 class="h4 fw-bold text-dark mb-0">5 Days</h2>
+                            <span class="text-muted small">Study Streak 🔥</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard 2-Column Split: Active Courses & Learning Analytics -->
+            <div class="row g-4">
+                <!-- Enrolled Course Cards -->
+                <div class="col-lg-8">
+                    <div class="portal-card mb-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h3 class="h5 fw-bold text-dark mb-0"><i class="bi bi-play-circle text-primary me-2"></i>Continue Learning</h3>
+                            <button class="btn btn-link btn-sm text-decoration-none fw-semibold" onclick="switchPortalTab('my-courses')">View All &rarr;</button>
+                        </div>
+                        <div class="row g-3" id="dashEnrolledCardsContainer">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Learning Activity & Wishlist -->
+                <div class="col-lg-4">
+                    <!-- Weekly Activity Chart (CSS Flexbox) -->
+                    <div class="portal-card mb-4">
+                        <h4 class="h6 fw-bold text-dark mb-2"><i class="bi bi-bar-chart-line text-success me-2"></i>Weekly Study Hours</h4>
+                        <div class="activity-chart-container">
+                            <div class="chart-bar-col"><div class="chart-bar-fill" style="height: 45%;"></div><span class="chart-bar-label">M</span></div>
+                            <div class="chart-bar-col"><div class="chart-bar-fill" style="height: 60%;"></div><span class="chart-bar-label">T</span></div>
+                            <div class="chart-bar-col"><div class="chart-bar-fill" style="height: 85%;"></div><span class="chart-bar-label">W</span></div>
+                            <div class="chart-bar-col"><div class="chart-bar-fill" style="height: 40%;"></div><span class="chart-bar-label">T</span></div>
+                            <div class="chart-bar-col"><div class="chart-bar-fill" style="height: 90%;"></div><span class="chart-bar-label">F</span></div>
+                            <div class="chart-bar-col"><div class="chart-bar-fill" style="height: 100%; background: linear-gradient(180deg, #10b981 0%, #34d399 100%);"></div><span class="chart-bar-label">S</span></div>
+                            <div class="chart-bar-col"><div class="chart-bar-fill" style="height: 30%;"></div><span class="chart-bar-label">S</span></div>
+                        </div>
+                        <small class="text-muted text-center d-block mt-2">12.5 hrs spent studying this week</small>
+                    </div>
+
+                    <!-- Saved Courses / Wishlist -->
+                    <div class="portal-card">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h4 class="h6 fw-bold text-dark mb-0"><i class="bi bi-heart text-danger me-2"></i>Wishlist</h4>
+                            <span class="badge bg-secondary-subtle text-secondary" id="dashWishlistCount">0 Saved</span>
+                        </div>
+                        <div class="d-flex flex-column gap-2" id="dashWishlistItemsContainer">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ---------------------------------------------------------------
+             PANE 2: MY COURSES (Enrolled Courses Grid)
+             --------------------------------------------------------------- -->
+        <section class="portal-pane" id="pane-my-courses">
+            <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+                <div>
+                    <h2 class="h4 fw-bold text-dark mb-1">My Enrolled Curriculums</h2>
+                    <p class="text-muted small mb-0">Track completion and launch directly into lesson workspaces.</p>
+                </div>
+                <button class="btn btn-theme-primary btn-sm" onclick="switchPortalTab('explorer')">
+                    <i class="bi bi-plus-circle me-1"></i> Enroll in More Courses
+                </button>
+            </div>
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="myCoursesFullGrid">
+                <!-- Populated dynamically -->
+            </div>
+        </section>
+
+        <!-- ---------------------------------------------------------------
+             PANE 3: COURSE EXPLORER (10 Courses Catalog & Search)
+             --------------------------------------------------------------- -->
+        <section class="portal-pane" id="pane-explorer">
+            
+            <div class="portal-card mb-4">
+                <div class="row g-3 align-items-center">
+                    <div class="col-lg-5">
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0"><i class="bi bi-search text-muted"></i></span>
+                            <input type="text" id="catalogSearchInput" class="form-control border-start-0" placeholder="Filter courses by name, topic, or instructor..." oninput="filterCatalogCards()">
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="d-flex flex-wrap gap-2 justify-content-lg-end" id="catalogFilterPills">
+                            <button class="filter-pill active" data-cat="all" onclick="setCatalogCategory('all', this)">All Courses (10)</button>
+                            <button class="filter-pill" data-cat="html" onclick="setCatalogCategory('html', this)">HTML</button>
+                            <button class="filter-pill" data-cat="css" onclick="setCatalogCategory('css', this)">CSS</button>
+                            <button class="filter-pill" data-cat="bootstrap" onclick="setCatalogCategory('bootstrap', this)">Bootstrap</button>
+                            <button class="filter-pill" data-cat="javascript" onclick="setCatalogCategory('javascript', this)">JavaScript</button>
+                            <button class="filter-pill" data-cat="tailwind" onclick="setCatalogCategory('tailwind', this)">Tailwind CSS</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center mt-3 pt-3 border-top small text-muted">
+                    <span id="catalogCountText">Showing 10 courses</span>
+                    <span><i class="bi bi-shield-check text-success me-1"></i>Full Access • Interactive Quizzes • Progress Tracking</span>
+                </div>
+            </div>
+
+            <!-- Responsive 3-Column Catalog Grid -->
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="catalogCardsContainer">
+                <!-- Populated dynamically -->
+            </div>
+
+        </section>
+
+        <!-- ---------------------------------------------------------------
+             PANE 4: INTERACTIVE CLASSROOM / STUDY DESK
+             --------------------------------------------------------------- -->
+        <section class="portal-pane" id="pane-classroom">
+            
+            <!-- Classroom Header & Course Selector -->
+            <div class="p-3 bg-white rounded-3 border shadow-sm mb-3 d-flex justify-content-between align-items-center flex-wrap gap-3">
+                <div class="d-flex align-items-center gap-2">
+                    <span class="badge bg-success px-3 py-2"><i class="bi bi-laptop me-1"></i>Classroom Mode</span>
+                    <h2 class="h6 fw-bold text-dark mb-0" id="classroomCourseHeading">Introduction to HTML</h2>
+                </div>
+
+                <!-- Course Dropdown Selector -->
+                <div class="d-flex align-items-center gap-2">
+                    <label for="classroomCourseSelect" class="small fw-bold text-muted text-nowrap">Switch Course:</label>
+                    <select id="classroomCourseSelect" class="form-select form-select-sm fw-semibold" style="min-width: 250px;" onchange="selectClassroomCourse(this.value)">
+                        <!-- Populated dynamically -->
+                    </select>
+                </div>
+            </div>
+
+            <!-- Split-Screen Classroom Layout (CSS Grid: Main Player 1fr + Checklist Sidebar 360px) -->
+            <div class="classroom-layout">
+                
+                <!-- Main Lesson Player Screen -->
+                <div>
+                    <div class="classroom-player-header">
+                        <div>
+                            <span class="badge bg-primary mb-1">Unit Lesson</span>
+                            <h3 class="h5 fw-bold text-white mb-0" id="classroomLessonTitle">1. Welcome &amp; Web Fundamentals</h3>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="badge bg-secondary" id="classroomLessonDuration">15 min</span>
+                        </div>
+                    </div>
+
+                    <!-- Lesson Body Content & Code Editor Showcase -->
+                    <div class="classroom-player-body" id="classroomLessonContent">
+                        <!-- Populated dynamically -->
+                    </div>
+
+                    <!-- Player Controls Footer -->
+                    <div class="p-3 bg-light border border-top-0 rounded-bottom d-flex justify-content-between align-items-center flex-wrap gap-2">
+                        <button class="btn btn-outline-secondary btn-sm fw-semibold" id="classroomPrevBtn" onclick="navigateClassroomLesson(-1)">
+                            <i class="bi bi-chevron-left me-1"></i> Previous Lesson
+                        </button>
+
+                        <button class="btn btn-success btn-sm fw-semibold px-3" id="classroomMarkBtn" onclick="toggleClassroomLessonComplete()">
+                            <i class="bi bi-check-lg me-1"></i> Mark as Completed
+                        </button>
+
+                        <button class="btn btn-primary btn-sm fw-semibold" id="classroomNextBtn" onclick="navigateClassroomLesson(1)">
+                            Next Lesson <i class="bi bi-chevron-right ms-1"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right Sidebar: Interactive Checklist -->
+                <div>
+                    <div class="curriculum-checklist sticky-top" style="top: 130px;">
+                        <div class="p-3 bg-light border-bottom">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <strong class="small text-dark">Course Progress</strong>
+                                <span class="small fw-bold text-primary" id="classroomProgressPercent">40%</span>
+                            </div>
+                            <div class="progress-bar-custom">
+                                <div class="progress-fill" id="classroomProgressFill" style="width: 40%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="p-2 border-bottom bg-white d-flex justify-content-between align-items-center">
+                            <small class="text-uppercase fw-bold text-muted ps-2">Lessons Checklist</small>
+                            <span class="badge bg-light text-muted border" id="classroomLessonCountBadge">5 Units</span>
+                        </div>
+
+                        <!-- Lesson Checklist Items -->
+                        <div id="classroomChecklistItems" style="max-height: 480px; overflow-y: auto;">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- ---------------------------------------------------------------
+             PANE 5: FRAMEWORK COMPARISON LAB (Tailwind vs Bootstrap)
+             --------------------------------------------------------------- -->
+        <section class="portal-pane" id="pane-lab">
+            
+            <div class="portal-card mb-4 text-white" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);">
+                <span class="badge bg-info text-dark px-3 py-1 rounded-pill mb-2">Frontend Architecture Lab</span>
+                <h2 class="h3 fw-bold text-white mb-2">Tailwind CSS vs Bootstrap 5 Framework Lab</h2>
+                <p class="text-light opacity-75 small mb-0" style="max-width: 680px;">
+                    Experience how LearnHub contrasts component-first frameworks with utility-first systems. Compare live code representations side by side.
+                </p>
+            </div>
+
+            <div class="row g-4 mb-4">
+                <!-- Bootstrap Side -->
+                <div class="col-lg-6">
+                    <div class="portal-card h-100">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="badge bg-purple text-white p-2" style="background: #7c3aed;">B</span>
+                                <h3 class="h5 fw-bold mb-0">Bootstrap 5 Architecture</h3>
+                            </div>
+                            <span class="badge bg-secondary-subtle text-secondary">Component-First</span>
+                        </div>
+                        <p class="small text-secondary mb-3">Uses prebuilt semantic component classes like <code>.card</code>, <code>.btn</code>, <code>.navbar</code>, and <code>.row</code>.</p>
+                        
+                        <!-- Live Component Preview -->
+                        <div class="p-3 bg-light rounded-3 border mb-3">
+                            <div class="card shadow-sm border-0">
+                                <div class="card-body">
+                                    <span class="badge bg-primary mb-2">col-12 col-md-6</span>
+                                    <h5 class="card-title h6 fw-bold">Bootstrap Card Component</h5>
+                                    <p class="card-text small text-muted">Constructed using the official 12-column grid and utility padding.</p>
+                                    <button class="btn btn-primary btn-sm">Primary Action</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <pre class="bg-dark text-light p-3 rounded small mb-0"><code>&lt;div class="card shadow-sm"&gt;
+  &lt;div class="card-body"&gt;
+    &lt;h5 class="card-title"&gt;Card&lt;/h5&gt;
+    &lt;button class="btn btn-primary"&gt;Go&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                    </div>
+                </div>
+
+                <!-- Tailwind Side -->
+                <div class="col-lg-6">
+                    <div class="portal-card h-100">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="badge bg-info text-dark p-2" style="background: #06b6d4;">T</span>
+                                <h3 class="h5 fw-bold mb-0">Tailwind CSS Architecture</h3>
+                            </div>
+                            <span class="badge bg-info-subtle text-info">Utility-First</span>
+                        </div>
+                        <p class="small text-secondary mb-3">Uses single-purpose atomic classes like <code>bg-white</code>, <code>p-6</code>, <code>rounded-xl</code>, and <code>shadow-md</code>.</p>
+                        
+                        <!-- Live Component Preview -->
+                        <div class="p-3 bg-light rounded-3 border mb-3">
+                            <div class="bg-white p-3 rounded-3 shadow-sm border">
+                                <span class="badge bg-teal text-white mb-2" style="background: #0d9488;">sm:grid md:flex</span>
+                                <h5 class="h6 fw-bold text-dark">Tailwind Utility Card</h5>
+                                <p class="small text-muted mb-2">Composed entirely without writing custom CSS selectors.</p>
+                                <button class="btn btn-sm text-white fw-bold" style="background: #0f172a;">Tailwind Button</button>
+                            </div>
+                        </div>
+
+                        <pre class="bg-dark text-light p-3 rounded small mb-0"><code>&lt;div class="bg-white p-4 rounded-xl shadow-md"&gt;
+  &lt;h5 class="font-bold text-slate-900"&gt;Card&lt;/h5&gt;
+  &lt;button class="bg-slate-900 text-white px-3 py-1.5 rounded"&gt;Go&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Standalone Tailwind Page Link -->
+            <div class="p-3 bg-white rounded-3 border text-center">
+                <span class="small text-muted me-2">Want to inspect the dedicated full-page Tailwind showcase?</span>
+                <a href="tailwind.html" class="btn btn-outline-primary btn-sm px-3 fw-semibold">Open Standalone Tailwind Demo &rarr;</a>
+            </div>
+
+        </section>
+
+        <!-- ---------------------------------------------------------------
+             PANE 6: FACULTY & ABOUT
+             --------------------------------------------------------------- -->
+        <section class="portal-pane" id="pane-about">
+            <div class="portal-card mb-4">
+                <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-1 rounded-pill mb-2">Portal Mission</span>
+                <h2 class="h4 fw-bold text-dark mb-2">About LearnHub Student Platform</h2>
+                <p class="text-secondary small mb-4" style="max-width: 750px;">
+                    LearnHub was designed as an all-in-one frontend engineering portal. We emphasize foundational principles (HTML5 semantics, CSS Box Model, CSS Specificity, Flexbox, and CSS Grid) before introducing production frameworks like Bootstrap and Tailwind.
+                </p>
+
+                <h3 class="h6 fw-bold text-dark mb-3">Our Lead Faculty</h3>
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <div class="p-3 bg-light rounded-3 border text-center">
+                            <div class="rounded-circle bg-primary text-white fs-4 fw-bold mx-auto mb-2 d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">SM</div>
+                            <h4 class="h6 fw-bold mb-0">Dr. Sarah Mitchell</h4>
+                            <small class="text-muted d-block mb-1">Senior Web Architect</small>
+                            <span class="badge bg-light text-dark border">HTML5 &amp; Architecture</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-3 bg-light rounded-3 border text-center">
+                            <div class="rounded-circle text-white fs-4 fw-bold mx-auto mb-2 d-flex align-items-center justify-content-center" style="width: 50px; height: 50px; background: #7c3aed;">MV</div>
+                            <h4 class="h6 fw-bold mb-0">Marcus Vance</h4>
+                            <small class="text-muted d-block mb-1">UI/UX Designer</small>
+                            <span class="badge bg-light text-dark border">CSS3 &amp; Motion</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-3 bg-light rounded-3 border text-center">
+                            <div class="rounded-circle bg-success text-white fs-4 fw-bold mx-auto mb-2 d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">ER</div>
+                            <h4 class="h6 fw-bold mb-0">Elena Rostova</h4>
+                            <small class="text-muted d-block mb-1">Lead Frontend Engineer</small>
+                            <span class="badge bg-light text-dark border">Bootstrap &amp; Grid</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ---------------------------------------------------------------
+             PANE 7: STUDENT SUPPORT & CONTACT
+             --------------------------------------------------------------- -->
+        <section class="portal-pane" id="pane-support">
+            <div class="row g-4">
+                <div class="col-lg-7">
+                    <div class="portal-card">
+                        <h2 class="h5 fw-bold text-dark mb-3">Student Helpdesk &amp; Inquiries</h2>
+                        <div id="portalContactAlert" class="alert alert-success d-none mb-3 small">
+                            <i class="bi bi-check-circle-fill me-1"></i> Your inquiry has been saved to LocalStorage!
+                        </div>
+                        <form id="portalContactForm">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label small fw-semibold">Name</label>
+                                    <input type="text" class="form-control" id="portalName" placeholder="Your name" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label small fw-semibold">Email</label>
+                                    <input type="email" class="form-control" id="portalEmail" placeholder="your@email.com" required>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label small fw-semibold">Subject</label>
+                                    <input type="text" class="form-control" id="portalSubject" placeholder="Inquiry topic" required>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label small fw-semibold">Message</label>
+                                    <textarea class="form-control" id="portalMessage" rows="4" placeholder="How can we assist your studies?" required></textarea>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-theme-primary btn-sm px-4">Submit Inquiry</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-lg-5">
+                    <div class="portal-card h-100 d-flex flex-column justify-content-between">
+                        <div>
+                            <h3 class="h6 fw-bold text-dark mb-3">Support Contacts</h3>
+                            <div class="d-flex flex-column gap-3 small">
+                                <div class="d-flex align-items-center gap-2">
+                                    <i class="bi bi-envelope-at-fill text-primary fs-5"></i>
+                                    <div><strong class="d-block text-dark">Email Support</strong><span class="text-muted">support@learnhub.edu</span></div>
+                                </div>
+                                <div class="d-flex align-items-center gap-2">
+                                    <i class="bi bi-chat-square-dots-fill text-success fs-5"></i>
+                                    <div><strong class="d-block text-dark">Discord Community</strong><span class="text-muted">Peer Study Rooms &amp; Mentorship</span></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-3 bg-light rounded-3 border small text-muted mt-4">
+                            <strong class="text-dark d-block mb-1">Local Storage Messages:</strong>
+                            <span id="portalStoredMessagesCount">0 message(s) saved</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ===================================================================
+         MODAL: COURSE SYLLABUS & DETAILS PREVIEW
+         =================================================================== -->
+    <div class="modal fade" id="portalCourseModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content rounded-4 border-0 shadow">
+                <div class="modal-header border-0 pb-0">
+                    <span id="pModalBadge" class="badge bg-primary px-3 py-1 rounded-pill">Category</span>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body px-4 pt-2 pb-4">
+                    <h2 class="h4 fw-bold text-dark mb-2" id="pModalTitle">Course Title</h2>
+                    <p class="text-secondary small mb-3" id="pModalDesc">Description</p>
+                    <div class="d-flex gap-3 p-3 bg-light rounded-3 border mb-3 flex-wrap small">
+                        <div><strong class="text-muted d-block">Duration:</strong> <span id="pModalDuration" class="fw-bold text-dark">--</span></div>
+                        <div><strong class="text-muted d-block">Level:</strong> <span id="pModalLevel" class="fw-bold text-dark">--</span></div>
+                        <div><strong class="text-muted d-block">Instructor:</strong> <span id="pModalInstructor" class="fw-bold text-dark">--</span></div>
+                        <div><strong class="text-muted d-block">Price:</strong> <span id="pModalPrice" class="fw-bold text-primary">--</span></div>
+                    </div>
+                    <h4 class="h6 fw-bold text-dark mb-2">Curriculum Units</h4>
+                    <div class="accordion mb-3" id="pModalAccordion"></div>
+                </div>
+                <div class="modal-footer border-top bg-light">
+                    <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-theme-primary btn-sm px-4" id="pModalEnrollBtn" onclick="launchModalCourseInDesk()">
+                        <i class="bi bi-play-circle-fill me-1"></i> Open in Study Desk
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Application Scripts -->
+    <script src="js/courses.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/main.js"></script>
+    
+    <!-- ===================================================================
+         PORTAL APPLICATION SPA CONTROLLER
+         =================================================================== -->
+    <script>
+        let portalActiveCourseId = 1;
+        let portalActiveLessonIdx = 0;
+        let modalActiveCourseId = 1;
+
+        document.addEventListener("DOMContentLoaded", () => {
+            // 1. Initial State Setup
+            initPortalUserData();
+            
+            // 2. Render Dashboard Widgets
+            renderPortalDashboard();
+
+            // 3. Render Catalog
+            renderPortalCatalog();
+
+            // 4. Setup Classroom
+            setupClassroomCourse(1);
+
+            // 5. Setup Contact Form
+            setupPortalContact();
+        });
+
+        // -------------------------------------------------------------
+        // TAB NAVIGATION CONTROLLER
+        // -------------------------------------------------------------
+        function switchPortalTab(tabName) {
+            // Update tabs
+            document.querySelectorAll(".portal-nav-tab").forEach(tab => {
+                tab.classList.toggle("active", tab.dataset.tab === tabName);
+            });
+
+            // Update panes
+            document.querySelectorAll(".portal-pane").forEach(pane => {
+                pane.classList.remove("active");
+            });
+
+            const targetPane = document.getElementById(`pane-${tabName}`);
+            if (targetPane) {
+                targetPane.classList.add("active");
+            }
+
+            // Specific refresh actions
+            if (tabName === "dashboard") renderPortalDashboard();
+            if (tabName === "my-courses") renderMyCoursesGrid();
+            if (tabName === "explorer") renderPortalCatalog();
+            if (tabName === "classroom") setupClassroomCourse(portalActiveCourseId);
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Global search handler
+        function handleGlobalSearch(query) {
+            if (!query.trim()) return;
+            switchPortalTab("explorer");
+            const input = document.getElementById("catalogSearchInput");
+            if (input) {
+                input.value = query;
+                filterCatalogCards();
+            }
+        }
+
+        // -------------------------------------------------------------
+        // USER PROFILE & TOPBAR
+        // -------------------------------------------------------------
+        function initPortalUserData() {
+            const user = getCurrentUser() || { name: "Alex Morgan", email: "alex@learnhub.edu" };
+            document.getElementById("topbarUserName").textContent = user.name.split(" ")[0];
+            document.getElementById("topbarUserAvatar").textContent = user.name.charAt(0);
+            document.getElementById("topbarUserEmail").textContent = user.email;
+        }
+
+        // -------------------------------------------------------------
+        // DASHBOARD PANE LOGIC
+        // -------------------------------------------------------------
+        function renderPortalDashboard() {
+            const enrolledIds = getEnrolledCourseIds();
+            const enrolledCourses = enrolledIds.map(id => getCourseById(id)).filter(Boolean);
+
+            let totalCompletedLessons = 0;
+            let totalCompletedCourses = 0;
+
+            enrolledCourses.forEach(c => {
+                const prog = calculateCourseProgress(c.id);
+                if (prog === 100) totalCompletedCourses++;
+                const map = getCompletedLessonsMap();
+                const done = map[c.id.toString()] || [];
+                totalCompletedLessons += done.length;
+            });
+
+            document.getElementById("dashMetricEnrolled").textContent = enrolledCourses.length;
+            document.getElementById("dashMetricCompleted").textContent = totalCompletedCourses;
+            document.getElementById("dashMetricLessons").textContent = totalCompletedLessons;
+            document.getElementById("topbarEnrolledCount").textContent = `${enrolledCourses.length} Active`;
+
+            // Hero active course widget (default first course)
+            const heroCourse = enrolledCourses[0] || getCourseById(1);
+            if (heroCourse) {
+                document.getElementById("heroActiveCourseTitle").textContent = heroCourse.title;
+                document.getElementById("heroActiveCourseDesc").textContent = heroCourse.description;
+                const p = calculateCourseProgress(heroCourse.id);
+                document.getElementById("heroActiveProgressFill").style.width = `${p}%`;
+                document.getElementById("heroActiveProgressText").textContent = `${p}% Finished`;
+            }
+
+            // Enrolled Cards inside Dashboard
+            const container = document.getElementById("dashEnrolledCardsContainer");
+            if (container) {
+                container.innerHTML = enrolledCourses.map(c => {
+                    const progress = calculateCourseProgress(c.id);
+                    const isDone = progress === 100;
+                    return `
+                        <div class="col-md-6">
+                            <div class="p-3 bg-light rounded-3 border h-100 d-flex flex-column justify-content-between">
+                                <div>
+                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                        <span class="badge ${c.badgeColor}">${c.badge}</span>
+                                        <span class="small fw-bold ${isDone ? 'text-success' : 'text-primary'}">${progress}%</span>
+                                    </div>
+                                    <h4 class="h6 fw-bold text-dark mb-1">${c.title}</h4>
+                                    <small class="text-muted d-block mb-2">${c.instructor}</small>
+                                </div>
+                                <div>
+                                    <div class="progress-bar-custom mb-3" style="height: 6px;">
+                                        <div class="progress-fill ${isDone ? 'bg-success' : ''}" style="width: ${progress}%;"></div>
+                                    </div>
+                                    <button class="btn btn-outline-primary btn-sm w-100 fw-semibold" onclick="openClassroomWithCourse(${c.id})">
+                                        <i class="bi bi-play-circle me-1"></i>Resume Unit
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join("");
+            }
+
+            // Dashboard Wishlist List
+            const wishContainer = document.getElementById("dashWishlistItemsContainer");
+            if (wishContainer) {
+                const wishIds = getWishlistCourseIds();
+                const wishCourses = wishIds.map(id => getCourseById(id)).filter(Boolean);
+                document.getElementById("dashWishlistCount").textContent = `${wishCourses.length} Saved`;
+
+                if (wishCourses.length === 0) {
+                    wishContainer.innerHTML = `<small class="text-muted">No saved items.</small>`;
+                } else {
+                    wishContainer.innerHTML = wishCourses.slice(0, 3).map(c => `
+                        <div class="d-flex align-items-center justify-content-between p-2 rounded bg-light border small">
+                            <div>
+                                <strong class="d-block text-dark text-truncate" style="max-width: 170px;">${c.title}</strong>
+                                <span class="text-muted">${c.duration} • ${c.price}</span>
+                            </div>
+                            <button class="btn btn-outline-primary btn-sm py-0 px-2" onclick="previewCourseModal(${c.id})">View</button>
+                        </div>
+                    `).join("");
+                }
+            }
+        }
+
+        // -------------------------------------------------------------
+        // MY COURSES PANE LOGIC
+        // -------------------------------------------------------------
+        function renderMyCoursesGrid() {
+            const container = document.getElementById("myCoursesFullGrid");
+            if (!container) return;
+
+            const enrolledIds = getEnrolledCourseIds();
+            const enrolledCourses = enrolledIds.map(id => getCourseById(id)).filter(Boolean);
+
+            if (enrolledCourses.length === 0) {
+                container.innerHTML = `
+                    <div class="col-12 text-center py-5">
+                        <i class="bi bi-mortarboard fs-1 text-muted d-block mb-2"></i>
+                        <h5>No enrolled courses</h5>
+                        <button class="btn btn-primary btn-sm" onclick="switchPortalTab('explorer')">Explore Catalog</button>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = enrolledCourses.map(c => {
+                const prog = calculateCourseProgress(c.id);
+                const isFinished = prog === 100;
+                return `
+                    <div class="col">
+                        <div class="course-card">
+                            <div class="course-card-img-wrapper" style="height: 140px;">
+                                <img src="${c.image}" alt="${c.title}">
+                                <span class="badge ${c.badgeColor} position-absolute top-0 end-0 m-2">${c.badge}</span>
+                            </div>
+                            <div class="course-card-body p-3">
+                                <h3 class="h6 fw-bold mb-1">${c.title}</h3>
+                                <small class="text-muted d-block mb-3">${c.instructor}</small>
+                                
+                                <div class="d-flex justify-content-between small text-muted mb-1">
+                                    <span>Progress</span>
+                                    <strong class="${isFinished ? 'text-success' : 'text-primary'}">${prog}%</strong>
+                                </div>
+                                <div class="progress-bar-custom mb-3" style="height: 7px;">
+                                    <div class="progress-fill ${isFinished ? 'bg-success' : ''}" style="width: ${prog}%;"></div>
+                                </div>
+                                
+                                <button class="btn ${isFinished ? 'btn-outline-success' : 'btn-theme-primary'} btn-sm w-100 fw-semibold" onclick="openClassroomWithCourse(${c.id})">
+                                    <i class="bi ${isFinished ? 'bi-arrow-repeat' : 'bi-play-circle'} me-1"></i>${isFinished ? 'Review Lessons' : 'Continue Study'}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join("");
+        }
+
+        // -------------------------------------------------------------
+        // CATALOG PANE LOGIC
+        // -------------------------------------------------------------
+        let currentCatalogCat = "all";
+
+        function setCatalogCategory(cat, btn) {
+            currentCatalogCat = cat;
+            document.querySelectorAll("#catalogFilterPills .filter-pill").forEach(p => p.classList.remove("active"));
+            btn.classList.add("active");
+            filterCatalogCards();
+        }
+
+        function filterCatalogCards() {
+            const query = document.getElementById("catalogSearchInput")?.value || "";
+            const filtered = filterCourses(currentCatalogCat, query);
+            const container = document.getElementById("catalogCardsContainer");
+            if (!container) return;
+
+            document.getElementById("catalogCountText").textContent = `Showing ${filtered.length} courses`;
+
+            container.innerHTML = filtered.map(c => {
+                const isEnr = isEnrolled(c.id);
+                const isFav = isWishlisted(c.id);
+                return `
+                    <div class="col">
+                        <div class="course-card">
+                            <div class="course-card-img-wrapper">
+                                <img src="${c.image}" alt="${c.title}">
+                                <span class="badge ${c.badgeColor} position-absolute top-0 end-0 m-2">${c.badge}</span>
+                            </div>
+                            <div class="course-card-body">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <span class="badge bg-light text-dark border"><i class="bi bi-clock me-1 text-primary"></i>${c.duration}</span>
+                                    <span class="badge bg-light text-secondary border">${c.level}</span>
+                                </div>
+                                <h3 class="h6 fw-bold mb-1 text-dark">${c.title}</h3>
+                                <p class="small text-secondary mb-3 flex-grow-1">${c.description}</p>
+                                <div class="d-flex justify-content-between align-items-center pt-2 border-top small">
+                                    <span class="text-muted"><i class="bi bi-person-circle me-1"></i>${c.instructor}</span>
+                                    <span class="fw-bold text-primary">${c.price}</span>
+                                </div>
+                            </div>
+                            <div class="course-card-footer">
+                                <button class="btn btn-sm btn-outline-danger border-0 ${isFav ? 'text-danger' : 'text-muted'}" onclick="handleCatalogWishlist(${c.id}, this)">
+                                    <i class="bi ${isFav ? 'bi-heart-fill' : 'bi-heart'}"></i>
+                                </button>
+                                <div class="d-flex gap-2">
+                                    <button class="btn btn-outline-secondary btn-sm px-2" onclick="previewCourseModal(${c.id})">Details</button>
+                                    ${isEnr ? 
+                                        `<button class="btn btn-success btn-sm px-3 fw-semibold" onclick="openClassroomWithCourse(${c.id})"><i class="bi bi-play-circle me-1"></i>Resume</button>` : 
+                                        `<button class="btn btn-theme-primary btn-sm px-3 fw-semibold" onclick="enrollFromCatalog(${c.id})">Enroll</button>`
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join("");
+        }
+
+        function renderPortalCatalog() {
+            filterCatalogCards();
+        }
+
+        function handleCatalogWishlist(id, btn) {
+            const active = toggleWishlist(id);
+            btn.innerHTML = `<i class="bi ${active ? 'bi-heart-fill text-danger' : 'bi-heart text-muted'}"></i>`;
+            showToast(active ? "Course saved to wishlist!" : "Removed from wishlist.");
+            renderPortalDashboard();
+        }
+
+        function enrollFromCatalog(courseId) {
+            enrollInCourse(courseId);
+            showToast("Enrolled! Opening Study Desk Classroom...", "success");
+            openClassroomWithCourse(courseId);
+        }
+
+        // -------------------------------------------------------------
+        // CLASSROOM / STUDY DESK LOGIC
+        // -------------------------------------------------------------
+        function populateClassroomSelector() {
+            const select = document.getElementById("classroomCourseSelect");
+            if (!select) return;
+            select.innerHTML = getAllCourses().map(c => `
+                <option value="${c.id}" ${c.id === portalActiveCourseId ? 'selected' : ''}>${c.id}. ${c.title}</option>
+            `).join("");
+        }
+
+        function selectClassroomCourse(id) {
+            portalActiveCourseId = parseInt(id, 10);
+            portalActiveLessonIdx = 0;
+            setupClassroomCourse(portalActiveCourseId);
+        }
+
+        function openClassroomWithCourse(courseId) {
+            portalActiveCourseId = parseInt(courseId, 10);
+            portalActiveLessonIdx = 0;
+            switchPortalTab("classroom");
+            const select = document.getElementById("classroomCourseSelect");
+            if (select) select.value = portalActiveCourseId;
+            setupClassroomCourse(portalActiveCourseId);
+        }
+
+        function setupClassroomCourse(courseId) {
+            const course = getCourseById(courseId);
+            if (!course) return;
+
+            populateClassroomSelector();
+            document.getElementById("classroomCourseHeading").textContent = `${course.title} (${course.level})`;
+            updateClassroomProgress(course);
+            renderClassroomChecklist(course);
+            renderClassroomActiveLesson(course);
+        }
+
+        function updateClassroomProgress(course) {
+            const p = calculateCourseProgress(course.id);
+            document.getElementById("classroomProgressFill").style.width = `${p}%`;
+            document.getElementById("classroomProgressPercent").textContent = `${p}% Complete`;
+        }
+
+        function renderClassroomChecklist(course) {
+            const container = document.getElementById("classroomChecklistItems");
+            if (!container) return;
+
+            document.getElementById("classroomLessonCountBadge").textContent = `${course.lessons.length} Units`;
+
+            container.innerHTML = course.lessons.map((l, idx) => {
+                const isCurrent = idx === portalActiveLessonIdx;
+                const isDone = isLessonCompleted(course.id, l.id);
+
+                return `
+                    <div class="lesson-check-item ${isCurrent ? 'active' : ''} ${isDone ? 'completed' : ''}" onclick="selectClassroomLesson(${idx})">
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="bi ${isDone ? 'bi-check-circle-fill text-success' : 'bi-circle text-muted'} check-icon fs-6"></i>
+                            <span class="small">${l.title}</span>
+                        </div>
+                        <span class="badge bg-light text-muted border" style="font-size: 0.7rem;">${l.duration}</span>
+                    </div>
+                `;
+            }).join("");
+        }
+
+        function selectClassroomLesson(idx) {
+            const course = getCourseById(portalActiveCourseId);
+            if (!course || idx < 0 || idx >= course.lessons.length) return;
+            portalActiveLessonIdx = idx;
+            renderClassroomChecklist(course);
+            renderClassroomActiveLesson(course);
+        }
+
+        function renderClassroomActiveLesson(course) {
+            const lesson = course.lessons[portalActiveLessonIdx];
+            if (!lesson) return;
+
+            document.getElementById("classroomLessonTitle").textContent = lesson.title;
+            document.getElementById("classroomLessonDuration").textContent = lesson.duration;
+            document.getElementById("classroomLessonContent").innerHTML = lesson.content || `<p>${lesson.summary}</p>`;
+
+            const isDone = isLessonCompleted(course.id, lesson.id);
+            const markBtn = document.getElementById("classroomMarkBtn");
+            if (markBtn) {
+                if (isDone) {
+                    markBtn.className = "btn btn-outline-success btn-sm fw-semibold px-3";
+                    markBtn.innerHTML = `<i class="bi bi-check2-all me-1"></i>Completed`;
+                } else {
+                    markBtn.className = "btn btn-success btn-sm fw-semibold px-3";
+                    markBtn.innerHTML = `<i class="bi bi-check-lg me-1"></i>Mark as Completed`;
+                }
+            }
+
+            document.getElementById("classroomPrevBtn").disabled = portalActiveLessonIdx === 0;
+            document.getElementById("classroomNextBtn").disabled = portalActiveLessonIdx === course.lessons.length - 1;
+        }
+
+        function toggleClassroomLessonComplete() {
+            const course = getCourseById(portalActiveCourseId);
+            if (!course) return;
+            const lesson = course.lessons[portalActiveLessonIdx];
+            if (!lesson) return;
+
+            markLessonComplete(course.id, lesson.id);
+            showToast(`Marked unit "${lesson.title}" completed!`, "success");
+
+            updateClassroomProgress(course);
+            renderClassroomChecklist(course);
+            renderClassroomActiveLesson(course);
+            renderPortalDashboard();
+        }
+
+        function navigateClassroomLesson(direction) {
+            const course = getCourseById(portalActiveCourseId);
+            if (!course) return;
+            const newIdx = portalActiveLessonIdx + direction;
+            if (newIdx >= 0 && newIdx < course.lessons.length) {
+                selectClassroomLesson(newIdx);
+            }
+        }
+
+        // -------------------------------------------------------------
+        // COURSE DETAILS MODAL
+        // -------------------------------------------------------------
+        function previewCourseModal(courseId) {
+            modalActiveCourseId = courseId;
+            const course = getCourseById(courseId);
+            if (!course) return;
+
+            document.getElementById("pModalTitle").textContent = course.title;
+            document.getElementById("pModalDesc").textContent = course.description;
+            document.getElementById("pModalBadge").textContent = course.badge;
+            document.getElementById("pModalBadge").className = `badge ${course.badgeColor} px-3 py-1 rounded-pill`;
+            document.getElementById("pModalDuration").textContent = course.duration;
+            document.getElementById("pModalLevel").textContent = course.level;
+            document.getElementById("pModalInstructor").textContent = course.instructor;
+            document.getElementById("pModalPrice").textContent = course.price;
+
+            const accContainer = document.getElementById("pModalAccordion");
+            if (accContainer && course.lessons) {
+                accContainer.innerHTML = course.lessons.map(l => `
+                    <div class="accordion-item border rounded-2 mb-1">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed py-2 px-3 small fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#pLesson${l.id}">
+                                ${l.title} <span class="badge bg-light text-muted ms-auto me-2">${l.duration}</span>
+                            </button>
+                        </h2>
+                        <div id="pLesson${l.id}" class="accordion-collapse collapse" data-bs-parent="#pModalAccordion">
+                            <div class="accordion-body small text-secondary py-2 px-3 bg-light">${l.summary}</div>
+                        </div>
+                    </div>
+                `).join("");
+            }
+
+            const modal = new bootstrap.Modal(document.getElementById("portalCourseModal"));
+            modal.show();
+        }
+
+        function launchModalCourseInDesk() {
+            enrollInCourse(modalActiveCourseId);
+            const modalEl = document.getElementById("portalCourseModal");
+            const modal = bootstrap.Modal.getInstance(modalEl);
+            if (modal) modal.hide();
+
+            showToast("Course launched in Study Desk!", "success");
+            openClassroomWithCourse(modalActiveCourseId);
+        }
+
+        // -------------------------------------------------------------
+        // SUPPORT / CONTACT FORM
+        // -------------------------------------------------------------
+        function setupPortalContact() {
+            const form = document.getElementById("portalContactForm");
+            const alertBox = document.getElementById("portalContactAlert");
+            const countBox = document.getElementById("portalStoredMessagesCount");
+
+            function updateCount() {
+                try {
+                    const stored = JSON.parse(localStorage.getItem(STORAGE_KEYS.CONTACT_MESSAGES) || "[]");
+                    if (countBox) countBox.textContent = `${stored.length} message(s) saved in LocalStorage.`;
+                } catch(e) {}
+            }
+            updateCount();
+
+            if (form) {
+                form.addEventListener("submit", (e) => {
+                    e.preventDefault();
+                    const name = document.getElementById("portalName").value.trim();
+                    const email = document.getElementById("portalEmail").value.trim();
+                    const subject = document.getElementById("portalSubject").value.trim();
+                    const message = document.getElementById("portalMessage").value.trim();
+
+                    if (!name || !email || !subject || !message) {
+                        showToast("Please fill in all inquiry fields.", "danger");
+                        return;
+                    }
+
+                    const stored = JSON.parse(localStorage.getItem(STORAGE_KEYS.CONTACT_MESSAGES) || "[]");
+                    stored.push({ name, email, subject, message, date: new Date().toLocaleString() });
+                    localStorage.setItem(STORAGE_KEYS.CONTACT_MESSAGES, JSON.stringify(stored));
+
+                    alertBox.classList.remove("d-none");
+                    form.reset();
+                    updateCount();
+                    showToast("Your inquiry has been submitted!", "success");
+                });
+            }
+        }
+    </script>
+</body>
+</html>

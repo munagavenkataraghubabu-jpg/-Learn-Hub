@@ -1,0 +1,349 @@
+/* ==========================================================================
+   LEARNHUB - STUDENT LEARNING PORTAL (LMS) DESIGN SYSTEM
+   Professional LMS Portal Styling: Dashboard, Classroom, Catalog, Lab
+   ========================================================================== */
+
+:root {
+    --primary: #4f46e5;
+    --primary-hover: #4338ca;
+    --primary-light: #eef2ff;
+    --secondary: #06b6d4;
+    --dark: #0f172a;
+    --slate: #1e293b;
+    --gray-bg: #f8fafc;
+    --text-main: #334155;
+    --text-muted: #64748b;
+    --border-color: #e2e8f0;
+    --portal-card-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
+    --portal-card-hover: 0 16px 32px rgba(79, 70, 229, 0.12);
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Global Reset & Universal Box Sizing */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+    color: var(--text-main);
+    background-color: #f1f5f9;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* Portal App Header */
+.portal-header {
+    background: #0f172a;
+    color: #ffffff;
+    padding: 0.75rem 1.5rem;
+    position: sticky;
+    top: 0;
+    z-index: 1040;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Portal Navigation Tabs Bar */
+.portal-nav-bar {
+    background: #ffffff;
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 61px;
+    z-index: 1030;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.portal-nav-tab {
+    padding: 0.9rem 1.25rem;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: var(--transition);
+    white-space: nowrap;
+    text-decoration: none;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+
+.portal-nav-tab:hover {
+    color: var(--primary);
+    background-color: #f8fafc;
+}
+
+.portal-nav-tab.active {
+    color: var(--primary);
+    border-bottom-color: var(--primary);
+    background-color: var(--primary-light);
+}
+
+/* Portal Content Panes (SPA tab switching) */
+.portal-pane {
+    display: none;
+    animation: portalFadeIn 0.3s ease;
+}
+
+.portal-pane.active {
+    display: block;
+}
+
+@keyframes portalFadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Portal Widget Cards */
+.portal-card {
+    background: #ffffff;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--portal-card-shadow);
+    padding: 1.5rem;
+    transition: var(--transition);
+}
+
+.portal-card:hover {
+    box-shadow: var(--portal-card-hover);
+    border-color: #c7d2fe;
+}
+
+/* Learning Activity Chart (CSS Flexbox) */
+.activity-chart-container {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.75rem;
+    height: 120px;
+    padding-top: 1rem;
+}
+
+.chart-bar-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    height: 100%;
+    justify-content: flex-end;
+}
+
+.chart-bar-fill {
+    width: 100%;
+    max-width: 28px;
+    background: linear-gradient(180deg, var(--primary) 0%, #818cf8 100%);
+    border-radius: 4px 4px 0 0;
+    transition: height 0.5s ease;
+}
+
+.chart-bar-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+/* Classroom Split-Screen (CSS Grid) */
+.classroom-layout {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 1.5rem;
+    min-height: calc(100vh - 180px);
+}
+
+@media screen and (max-width: 992px) {
+    .classroom-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Classroom Video/Lesson Screen */
+.classroom-player-header {
+    background: #0f172a;
+    color: #ffffff;
+    padding: 1.25rem 1.5rem;
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #38bdf8;
+}
+
+.classroom-player-body {
+    background: #ffffff;
+    padding: 2rem;
+    border: 1px solid var(--border-color);
+    border-top: none;
+    min-height: 400px;
+}
+
+/* Classroom Sidebar Checklist */
+.curriculum-checklist {
+    background: #ffffff;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--portal-card-shadow);
+    overflow: hidden;
+}
+
+.lesson-check-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.85rem 1rem;
+    border-bottom: 1px solid var(--border-color);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.lesson-check-item:hover {
+    background-color: #f8fafc;
+}
+
+.lesson-check-item.active {
+    background-color: var(--primary-light);
+    border-left: 4px solid var(--primary);
+    font-weight: 600;
+}
+
+.lesson-check-item.completed .check-icon {
+    color: #10b981;
+}
+
+/* Custom Progress Bar */
+.progress-bar-custom {
+    height: 8px;
+    border-radius: 4px;
+    background-color: #e2e8f0;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+    border-radius: 4px;
+    transition: width 0.6s ease;
+}
+
+/* Course Card in Catalog */
+.course-card {
+    background: #ffffff;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--portal-card-shadow);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.course-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--portal-card-hover);
+    border-color: #c7d2fe;
+}
+
+.course-card-img-wrapper {
+    position: relative;
+    height: 170px;
+    overflow: hidden;
+    background-color: #f1f5f9;
+}
+
+.course-card-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.course-card:hover .course-card-img-wrapper img {
+    transform: scale(1.05);
+}
+
+.course-card-body {
+    padding: 1.25rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.course-card-footer {
+    padding: 0.85rem 1.25rem;
+    background: #fafbfc;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Filter Pills */
+.filter-pill {
+    padding: 0.45rem 1.1rem;
+    border-radius: 9999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    background: #ffffff;
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.filter-pill:hover,
+.filter-pill.active {
+    background: var(--primary);
+    color: #ffffff;
+    border-color: var(--primary);
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+}
+
+/* Buttons */
+.btn-theme-primary {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+    color: #ffffff !important;
+    font-weight: 600;
+    padding: 0.65rem 1.4rem;
+    border-radius: 8px;
+    border: none;
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+
+.btn-theme-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(79, 70, 229, 0.35);
+}
+
+/* Toast Notifications */
+.learnhub-toast {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    z-index: 9999;
+    min-width: 280px;
+    max-width: 380px;
+    padding: 1rem 1.25rem;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    background: #ffffff;
+    border-left: 5px solid var(--primary);
+    transform: translateX(120%);
+    transition: transform 0.4s ease;
+}
+
+.learnhub-toast.show {
+    transform: translateX(0);
+}
