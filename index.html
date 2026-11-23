@@ -12,6 +12,8 @@
     <!-- Custom Portal Styles -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
+    <!-- Google Identity Services -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
 
@@ -47,44 +49,61 @@
                 <!-- Portal Quick Stats & Student Profile -->
                 <div class="d-flex align-items-center gap-3">
                     
-                    <!-- Daily Streak Widget -->
-                    <div class="d-none d-sm-flex align-items-center gap-1 bg-dark border border-secondary border-opacity-50 px-2 py-1 rounded-pill small" title="Learning Streak">
-                        <span class="text-warning" id="topbarStreakIcon">🌟</span>
-                        <strong class="text-white" id="topbarStreakText">Fresh Student</strong>
-                    </div>
+                    <!-- USER LOGGED IN SECTION -->
+                    <div id="topbarUserSection" class="d-flex align-items-center gap-3">
+                        <!-- Daily Streak Widget -->
+                        <div class="d-none d-sm-flex align-items-center gap-1 bg-dark border border-secondary border-opacity-50 px-2 py-1 rounded-pill small" title="Learning Streak">
+                            <span class="text-warning" id="topbarStreakIcon">🌟</span>
+                            <strong class="text-white" id="topbarStreakText">Fresh Student</strong>
+                        </div>
 
-                    <!-- Quick Enrolled Badge -->
-                    <div class="d-none d-md-flex align-items-center gap-1 bg-dark border border-secondary border-opacity-50 px-2 py-1 rounded-pill small">
-                        <i class="bi bi-book-half text-primary"></i>
-                        <span class="text-light" id="topbarEnrolledCount">0 Active</span>
-                    </div>
+                        <!-- Quick Enrolled Badge -->
+                        <div class="d-none d-md-flex align-items-center gap-1 bg-dark border border-secondary border-opacity-50 px-2 py-1 rounded-pill small">
+                            <i class="bi bi-book-half text-primary"></i>
+                            <span class="text-light" id="topbarEnrolledCount">0 Active</span>
+                        </div>
 
-                    <!-- Notification Bell -->
-                    <button class="btn btn-dark btn-sm text-secondary border-0 position-relative p-1" title="Notifications" onclick="showToast('Welcome to LearnHub! Explore our 10 courses to start learning.', 'info')">
-                        <i class="bi bi-bell fs-5 text-light"></i>
-                        <span class="position-absolute top-0 start-100 translate-middle p-1 bg-primary border border-dark rounded-circle"></span>
-                    </button>
-
-                    <!-- Student Profile Dropdown -->
-                    <div class="dropdown" id="portalUserDropdownWrapper">
-                        <button class="btn btn-dark border-secondary border-opacity-50 dropdown-toggle d-flex align-items-center gap-2 py-1 px-2 rounded-pill" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <span class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center fw-bold" style="width: 28px; height: 28px; font-size: 0.8rem;" id="topbarUserAvatar">
-                                S
-                            </span>
-                            <span class="d-none d-sm-inline small text-white fw-semibold" id="topbarUserName">Student</span>
+                        <!-- Notification Bell -->
+                        <button class="btn btn-dark btn-sm text-secondary border-0 position-relative p-1" title="Notifications" onclick="showToast('Welcome to LearnHub! Explore our 10 courses to start learning.', 'info')">
+                            <i class="bi bi-bell fs-5 text-light"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle p-1 bg-primary border border-dark rounded-circle"></span>
                         </button>
-                        <ul class="dropdown-menu dropdown-menu-end shadow border-0">
-                            <li class="px-3 py-2 border-bottom">
-                                <small class="text-muted d-block">Account Signed In:</small>
-                                <strong class="text-dark small" id="topbarUserEmail">student@learnhub.edu</strong>
-                            </li>
-                            <li><a class="dropdown-item py-2 small" href="javascript:void(0)" onclick="switchPortalTab('dashboard')"><i class="bi bi-speedometer2 text-primary me-2"></i>My Dashboard</a></li>
-                            <li><a class="dropdown-item py-2 small" href="javascript:void(0)" onclick="switchPortalTab('classroom')"><i class="bi bi-play-circle text-success me-2"></i>Study Desk</a></li>
-                            <li><a class="dropdown-item py-2 small" href="javascript:void(0)" onclick="switchPortalTab('explorer')"><i class="bi bi-compass text-info me-2"></i>Course Catalog</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><button class="dropdown-item py-2 small text-primary" data-bs-toggle="modal" data-bs-target="#switchAccountModal"><i class="bi bi-arrow-left-right me-2"></i>Switch / Create Account</button></li>
-                            <li><button class="dropdown-item py-2 small text-danger" onclick="logoutUser()"><i class="bi bi-box-arrow-right me-2"></i>Sign Out</button></li>
-                        </ul>
+
+                        <!-- Student Profile Dropdown -->
+                        <div class="dropdown" id="portalUserDropdownWrapper">
+                            <button class="btn btn-dark border-secondary border-opacity-50 dropdown-toggle d-flex align-items-center gap-2 py-1 px-2 rounded-pill" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center fw-bold" style="width: 28px; height: 28px; font-size: 0.8rem;" id="topbarUserAvatar">
+                                    S
+                                </span>
+                                <span class="d-none d-sm-inline small text-white fw-semibold" id="topbarUserName">Student</span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end shadow border-0">
+                                <li class="px-3 py-2 border-bottom">
+                                    <small class="text-muted d-block">Account Signed In:</small>
+                                    <strong class="text-dark small" id="topbarUserEmail">student@learnhub.edu</strong>
+                                </li>
+                                <li><a class="dropdown-item py-2 small" href="javascript:void(0)" onclick="switchPortalTab('dashboard')"><i class="bi bi-speedometer2 text-primary me-2"></i>My Dashboard</a></li>
+                                <li><a class="dropdown-item py-2 small" href="javascript:void(0)" onclick="switchPortalTab('classroom')"><i class="bi bi-play-circle text-success me-2"></i>Study Desk</a></li>
+                                <li><a class="dropdown-item py-2 small" href="javascript:void(0)" onclick="switchPortalTab('explorer')"><i class="bi bi-compass text-info me-2"></i>Course Catalog</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><button class="dropdown-item py-2 small text-primary" data-bs-toggle="modal" data-bs-target="#switchAccountModal"><i class="bi bi-arrow-left-right me-2"></i>Switch / Create Account</button></li>
+                                <li><button class="dropdown-item py-2 small text-danger" onclick="logoutUser()"><i class="bi bi-box-arrow-right me-2"></i>Sign Out</button></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- GUEST (LOGGED OUT) SECTION -->
+                    <div id="topbarGuestSection" class="d-none align-items-center gap-2">
+                        <button class="btn btn-sm btn-outline-light d-flex align-items-center gap-2" onclick="triggerGoogleSignIn(onPortalAuthSuccess)">
+                            <svg width="16" height="16" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+                              <path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.616z"/>
+                              <path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z"/>
+                              <path fill="#FBBC05" d="M3.964 10.707c-.18-.54-.282-1.117-.282-1.707s.102-1.167.282-1.707V4.961H.957C.347 6.175 0 7.55 0 9s.347 2.825.957 4.039l3.007-2.332z"/>
+                              <path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.961L3.964 7.293C4.672 5.166 6.656 3.58 9 3.58z"/>
+                            </svg>
+                            <span class="small fw-semibold">Sign in with Google</span>
+                        </button>
+                        <button class="btn btn-sm btn-primary fw-semibold" onclick="scrollToAuthGate()">Login</button>
                     </div>
 
                 </div>
@@ -96,7 +115,7 @@
     <!-- ===================================================================
          2. PORTAL NAVIGATION TABS BAR (LMS Application Tab Bar)
          =================================================================== -->
-    <nav class="portal-nav-bar">
+    <nav class="portal-nav-bar" id="portalNavBar">
         <div class="container-fluid px-3 px-md-4">
             <div class="d-flex align-items-center overflow-auto" id="portalTabsNav">
                 <button class="portal-nav-tab active" data-tab="dashboard" onclick="switchPortalTab('dashboard')">
@@ -128,6 +147,184 @@
          MAIN PORTAL WORKSPACE (Single-Page App Panes)
          =================================================================== -->
     <main class="container-fluid px-3 px-md-4 py-4">
+
+        <!-- ===============================================================
+             AUTHENTICATION GATE (SHOWN WHEN USER IS NOT LOGGED IN)
+             =============================================================== -->
+        <div id="portalAuthGate" class="portal-auth-gate py-2">
+            <!-- Hero Alert Banner -->
+            <div class="auth-gate-hero">
+                <div class="row align-items-center g-4">
+                    <div class="col-lg-8">
+                        <span class="badge bg-warning text-dark px-3 py-1 rounded-pill fw-bold mb-2">
+                            <i class="bi bi-shield-lock-fill me-1"></i> Student Authentication Required
+                        </span>
+                        <h1 class="display-6 fw-bold text-white mb-2">Welcome to LearnHub Student Portal</h1>
+                        <p class="text-light opacity-90 lead fs-6 mb-3">
+                            Please sign in to access courses, resume your interactive study desk, and track learning progress.
+                        </p>
+                        <div class="d-flex flex-wrap gap-2">
+                            <span class="badge bg-white bg-opacity-15 text-white border border-white border-opacity-25 px-3 py-2"><i class="bi bi-check2-circle text-success me-1"></i> 10 Frontend Courses</span>
+                            <span class="badge bg-white bg-opacity-15 text-white border border-white border-opacity-25 px-3 py-2"><i class="bi bi-play-circle text-info me-1"></i> Interactive Classroom</span>
+                            <span class="badge bg-white bg-opacity-15 text-white border border-white border-opacity-25 px-3 py-2"><i class="bi bi-lightning-charge text-warning me-1"></i> Real-time Progress Tracking</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 text-center d-none d-lg-block">
+                        <div class="p-4 rounded-4 bg-white bg-opacity-10 border border-white border-opacity-20 d-inline-block">
+                            <span style="font-size: 3.5rem;">🎓</span>
+                            <div class="fw-bold text-white mt-2">Learn Skills. Build Your Future.</div>
+                            <small class="text-light opacity-75">100% Free & Open Access</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Login & Course Teaser Row -->
+            <div class="row justify-content-center g-4">
+                
+                <!-- Left: Course Preview (Locked) -->
+                <div class="col-lg-6">
+                    <div class="portal-card h-100">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h2 class="h5 fw-bold text-dark mb-0"><i class="bi bi-journal-code text-primary me-2"></i>Curriculums Inside LearnHub (10 Courses)</h2>
+                            <span class="badge bg-danger bg-opacity-10 text-danger border border-danger border-opacity-25"><i class="bi bi-lock-fill me-1"></i>Locked</span>
+                        </div>
+                        <p class="text-secondary small mb-3">Sign in with Google or student credentials to immediately unlock full access to all 10 verified courses:</p>
+
+                        <!-- Teaser Cards -->
+                        <div class="d-flex flex-column gap-3 mb-3">
+                            <div class="p-3 rounded-3 border bg-light d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center gap-3">
+                                    <span class="rounded-3 bg-danger text-white p-2 fw-bold" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">H5</span>
+                                    <div>
+                                        <strong class="text-dark d-block">Introduction to HTML &amp; Semantics</strong>
+                                        <small class="text-muted">4 Hours • 5 Units • Beginner</small>
+                                    </div>
+                                </div>
+                                <span class="badge bg-secondary"><i class="bi bi-lock me-1"></i>Locked</span>
+                            </div>
+
+                            <div class="p-3 rounded-3 border bg-light d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center gap-3">
+                                    <span class="rounded-3 bg-primary text-white p-2 fw-bold" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">CSS</span>
+                                    <div>
+                                        <strong class="text-dark d-block">CSS3 Styling &amp; Responsive Design</strong>
+                                        <small class="text-muted">6 Hours • 5 Units • Beginner to Intermediate</small>
+                                    </div>
+                                </div>
+                                <span class="badge bg-secondary"><i class="bi bi-lock me-1"></i>Locked</span>
+                            </div>
+
+                            <div class="p-3 rounded-3 border bg-light d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center gap-3">
+                                    <span class="rounded-3 bg-warning text-dark p-2 fw-bold" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">JS</span>
+                                    <div>
+                                        <strong class="text-dark d-block">JavaScript ES6+ &amp; DOM Manipulation</strong>
+                                        <small class="text-muted">8 Hours • 5 Units • Intermediate</small>
+                                    </div>
+                                </div>
+                                <span class="badge bg-secondary"><i class="bi bi-lock me-1"></i>Locked</span>
+                            </div>
+                        </div>
+
+                        <div class="alert alert-primary py-2 px-3 small border-0 mb-0 d-flex align-items-center gap-2">
+                            <i class="bi bi-info-circle-fill fs-5"></i>
+                            <span>Plus Bootstrap 5, Tailwind CSS, Flexbox Masterclass, CSS Grid Layouts, and more!</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Sign In / Create Account Card -->
+                <div class="col-lg-6 col-xl-5">
+                    <div class="auth-gate-card">
+                        
+                        <!-- Sign In Header -->
+                        <div class="text-center mb-4">
+                            <span class="rounded-circle bg-primary bg-opacity-10 text-primary d-inline-flex align-items-center justify-content-center p-3 mb-2">
+                                <i class="bi bi-person-lock fs-3"></i>
+                            </span>
+                            <h2 class="h4 fw-bold text-dark mb-1">Student Sign In</h2>
+                            <p class="text-secondary small mb-0">Choose your preferred login method below</p>
+                        </div>
+
+                        <!-- Google Sign-In Button (Official Google Look & Logo) -->
+                        <button type="button" class="btn btn-google w-100 py-2 mb-3 shadow-sm" onclick="triggerGoogleSignIn(onPortalAuthSuccess)">
+                            <svg width="20" height="20" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+                              <path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.616z"/>
+                              <path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z"/>
+                              <path fill="#FBBC05" d="M3.964 10.707c-.18-.54-.282-1.117-.282-1.707s.102-1.167.282-1.707V4.961H.957C.347 6.175 0 7.55 0 9s.347 2.825.957 4.039l3.007-2.332z"/>
+                              <path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.961L3.964 7.293C4.672 5.166 6.656 3.58 9 3.58z"/>
+                            </svg>
+                            <span>Sign in with Google</span>
+                        </button>
+
+                        <div class="auth-divider"><span>or sign in with email</span></div>
+
+                        <!-- Auth Navigation Tabs: Sign In vs Create Account -->
+                        <ul class="nav nav-pills nav-fill mb-3 bg-light p-1 rounded-3">
+                            <li class="nav-item">
+                                <button class="nav-link active py-1 small fw-semibold" id="gateTabLoginBtn" onclick="toggleGateAuthMode('login')">Sign In</button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link py-1 small fw-semibold" id="gateTabSignupBtn" onclick="toggleGateAuthMode('signup')">Create Account</button>
+                            </li>
+                        </ul>
+
+                        <!-- Sign In Form -->
+                        <form id="gateLoginForm" onsubmit="handleGateLogin(event)">
+                            <div class="mb-3">
+                                <label for="gateLoginEmail" class="form-label small fw-semibold">Email Address</label>
+                                <div class="input-group input-group-sm">
+                                    <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                                    <input type="email" class="form-control" id="gateLoginEmail" placeholder="you@domain.com" value="alex@learnhub.edu" required>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="gateLoginPassword" class="form-label small fw-semibold">Password</label>
+                                <div class="input-group input-group-sm">
+                                    <span class="input-group-text"><i class="bi bi-key"></i></span>
+                                    <input type="password" class="form-control" id="gateLoginPassword" placeholder="••••••••" value="password123" required>
+                                </div>
+                            </div>
+                            <div id="gateLoginAlert" class="alert alert-danger small py-2 d-none"></div>
+                            <button type="submit" class="btn btn-theme-primary w-100 py-2 fw-semibold justify-content-center mb-2">
+                                Enter Student Portal &rarr;
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm w-100 py-1" onclick="autofillAndSubmitDemo()">
+                                <i class="bi bi-lightning-charge-fill text-warning me-1"></i> Quick Demo Login (Alex Johnson)
+                            </button>
+                        </form>
+
+                        <!-- Create Account Form (Hidden by default) -->
+                        <form id="gateSignupForm" class="d-none" onsubmit="handleGateSignup(event)">
+                            <div class="mb-2">
+                                <label for="gateSignupName" class="form-label small fw-semibold">Full Name</label>
+                                <input type="text" class="form-control form-control-sm" id="gateSignupName" placeholder="e.g. John Doe" required>
+                            </div>
+                            <div class="mb-2">
+                                <label for="gateSignupEmail" class="form-label small fw-semibold">Email Address</label>
+                                <input type="email" class="form-control form-control-sm" id="gateSignupEmail" placeholder="john@example.com" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="gateSignupPassword" class="form-label small fw-semibold">Create Password</label>
+                                <input type="password" class="form-control form-control-sm" id="gateSignupPassword" placeholder="Min 6 characters" required>
+                            </div>
+                            <div id="gateSignupAlert" class="alert alert-danger small py-2 d-none"></div>
+                            <button type="submit" class="btn btn-success w-100 py-2 fw-semibold justify-content-center">
+                                <i class="bi bi-stars me-1"></i> Create Fresh Student Account &rarr;
+                            </button>
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ===============================================================
+             FULL PORTAL WORKSPACE (UNLOCKED WHEN LOGGED IN)
+             =============================================================== -->
+        <div id="portalWorkspace">
 
         <!-- ---------------------------------------------------------------
              PANE 1: STUDENT DASHBOARD
@@ -554,6 +751,8 @@
             </div>
         </section>
 
+        </div> <!-- /#portalWorkspace -->
+
     </main>
 
     <!-- ===================================================================
@@ -679,24 +878,133 @@
         let modalActiveCourseId = 1;
 
         document.addEventListener("DOMContentLoaded", () => {
-            // 1. Initial State Setup
-            initPortalUserData();
-            
-            // 2. Render Dashboard Widgets
-            renderPortalDashboard();
+            // 1. Sync Authentication State & Display
+            syncPortalAuthState();
 
-            // 3. Render Catalog
-            renderPortalCatalog();
-
-            // 4. Setup Classroom
-            setupClassroomCourse(1);
-
-            // 5. Setup Contact Form
+            // 2. Setup Contact Form
             setupPortalContact();
 
-            // 6. Setup Account Modal
+            // 3. Setup Account Modal
             setupAccountModal();
         });
+
+        // Sync view based on whether user is logged in
+        function syncPortalAuthState() {
+            const loggedIn = isLoggedIn();
+            const gate = document.getElementById("portalAuthGate");
+            const workspace = document.getElementById("portalWorkspace");
+            const navBar = document.getElementById("portalNavBar");
+            const topbarUser = document.getElementById("topbarUserSection");
+            const topbarGuest = document.getElementById("topbarGuestSection");
+
+            if (loggedIn) {
+                if (gate) gate.classList.add("d-none");
+                if (workspace) workspace.classList.remove("d-none");
+                if (navBar) navBar.classList.remove("d-none");
+                if (topbarUser) topbarUser.classList.remove("d-none");
+                if (topbarGuest) {
+                    topbarGuest.classList.add("d-none");
+                    topbarGuest.classList.remove("d-flex");
+                }
+
+                initPortalUserData();
+                renderPortalDashboard();
+                renderPortalCatalog();
+                setupClassroomCourse(portalActiveCourseId || 1);
+            } else {
+                if (gate) gate.classList.remove("d-none");
+                if (workspace) workspace.classList.add("d-none");
+                if (navBar) navBar.classList.add("d-none");
+                if (topbarUser) topbarUser.classList.add("d-none");
+                if (topbarGuest) {
+                    topbarGuest.classList.remove("d-none");
+                    topbarGuest.classList.add("d-flex");
+                }
+            }
+        }
+
+        function onPortalAuthSuccess(user) {
+            showToast(`Welcome, ${user.name}! Access unlocked.`, "success");
+            syncPortalAuthState();
+            switchPortalTab("dashboard");
+        }
+
+        function scrollToAuthGate() {
+            const gate = document.getElementById("portalAuthGate");
+            if (gate) {
+                gate.scrollIntoView({ behavior: 'smooth' });
+                const emailInput = document.getElementById("gateLoginEmail");
+                if (emailInput) emailInput.focus();
+            }
+        }
+
+        function toggleGateAuthMode(mode) {
+            const loginForm = document.getElementById("gateLoginForm");
+            const signupForm = document.getElementById("gateSignupForm");
+            const loginBtn = document.getElementById("gateTabLoginBtn");
+            const signupBtn = document.getElementById("gateTabSignupBtn");
+
+            if (mode === "login") {
+                loginForm.classList.remove("d-none");
+                signupForm.classList.add("d-none");
+                loginBtn.classList.add("active");
+                signupBtn.classList.remove("active");
+            } else {
+                loginForm.classList.add("d-none");
+                signupForm.classList.remove("d-none");
+                loginBtn.classList.remove("active");
+                signupBtn.classList.add("active");
+            }
+        }
+
+        function handleGateLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById("gateLoginEmail").value.trim();
+            const password = document.getElementById("gateLoginPassword").value;
+            const alertBox = document.getElementById("gateLoginAlert");
+
+            const res = loginUser(email, password);
+            if (res.success) {
+                alertBox.classList.add("d-none");
+                onPortalAuthSuccess(res.user);
+            } else {
+                alertBox.textContent = res.message;
+                alertBox.classList.remove("d-none");
+            }
+        }
+
+        function handleGateSignup(e) {
+            e.preventDefault();
+            const name = document.getElementById("gateSignupName").value.trim();
+            const email = document.getElementById("gateSignupEmail").value.trim();
+            const password = document.getElementById("gateSignupPassword").value;
+            const alertBox = document.getElementById("gateSignupAlert");
+
+            if (!name || !email || password.length < 6) {
+                alertBox.textContent = "Please fill in all fields (password min 6 characters).";
+                alertBox.classList.remove("d-none");
+                return;
+            }
+
+            const res = registerUser(name, email, password);
+            if (res.success) {
+                alertBox.classList.add("d-none");
+                loginUser(email, password);
+                onPortalAuthSuccess({ name, email });
+            } else {
+                alertBox.textContent = res.message;
+                alertBox.classList.remove("d-none");
+            }
+        }
+
+        function autofillAndSubmitDemo() {
+            document.getElementById("gateLoginEmail").value = "alex@learnhub.edu";
+            document.getElementById("gateLoginPassword").value = "password123";
+            const res = loginUser("alex@learnhub.edu", "password123");
+            if (res.success) {
+                onPortalAuthSuccess(res.user);
+            }
+        }
 
         // -------------------------------------------------------------
         // TAB NAVIGATION CONTROLLER

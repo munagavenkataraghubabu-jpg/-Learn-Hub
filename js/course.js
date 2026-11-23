@@ -100,6 +100,70 @@ function handleEnrollClick(courseId) {
 
 // Setup Courses Page Listeners (courses.html)
 function initCoursesPage() {
+    const loggedIn = isLoggedIn();
+    const container = document.getElementById("coursesGrid");
+    const controls = document.querySelector(".p-4.bg-white.rounded-4.border.shadow-sm.mb-5");
+    const navAuth = document.getElementById("navbarAuthActions");
+
+    // Update navbar auth state
+    if (navAuth) {
+        if (loggedIn) {
+            const user = getCurrentUser() || { name: "Student", email: "" };
+            navAuth.innerHTML = `
+                <div class="d-flex align-items-center gap-2">
+                    <span class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center fw-bold" style="width: 32px; height: 32px; font-size: 0.85rem;">
+                        ${user.name.charAt(0).toUpperCase()}
+                    </span>
+                    <span class="small fw-semibold text-dark me-2">${user.name.split(' ')[0]}</span>
+                    <button class="btn btn-outline-danger btn-sm" onclick="logoutUser()">Sign Out</button>
+                </div>
+            `;
+        } else {
+            navAuth.innerHTML = `
+                <button type="button" class="btn btn-sm btn-outline-secondary me-2 d-flex align-items-center gap-1" onclick="triggerGoogleSignIn(() => window.location.reload())">
+                    ${GOOGLE_SVG_ICON} <span class="d-none d-sm-inline">Google</span>
+                </button>
+                <a href="login.html?redirect=courses.html" class="btn btn-outline-primary btn-sm px-3 fw-semibold me-2">Login</a>
+                <a href="signup.html" class="btn btn-theme-primary btn-sm px-3 fw-semibold">Sign Up</a>
+            `;
+        }
+    }
+
+    // Gate Courses Grid: Only show courses if user is logged in!
+    if (!loggedIn) {
+        if (controls) controls.classList.add("d-none");
+        if (container) {
+            container.innerHTML = `
+                <div class="col-12">
+                    <div class="p-5 text-center bg-white rounded-4 border shadow-sm my-3">
+                        <span class="rounded-circle bg-primary bg-opacity-10 text-primary d-inline-flex align-items-center justify-content-center p-3 mb-3">
+                            <i class="bi bi-shield-lock-fill fs-1"></i>
+                        </span>
+                        <h2 class="h3 fw-bold text-dark mb-2">Student Authentication Required</h2>
+                        <p class="text-secondary lead fs-6 mx-auto mb-4" style="max-width: 540px;">
+                            The 10 frontend development courses and curriculums are reserved for registered students. Sign in with your Google account or email to unlock instant access.
+                        </p>
+                        <div class="d-flex justify-content-center align-items-center gap-3 flex-wrap mb-4">
+                            <button type="button" class="btn btn-google shadow-sm px-4 py-2" onclick="triggerGoogleSignIn(() => window.location.reload())">
+                                ${GOOGLE_SVG_ICON}
+                                <span>Sign in with Google</span>
+                            </button>
+                            <a href="login.html?redirect=courses.html" class="btn btn-theme-primary px-4 py-2">
+                                Login with Email &rarr;
+                            </a>
+                        </div>
+                        <div class="pt-3 border-top small text-muted">
+                            New to LearnHub? <a href="signup.html" class="fw-bold text-primary">Create a 100% Free Account</a>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        return;
+    }
+
+    // User is logged in: reveal search & filter controls and courses
+    if (controls) controls.classList.remove("d-none");
     const searchInput = document.getElementById("courseSearchInput");
     const filterPills = document.querySelectorAll(".filter-pill");
 
@@ -149,6 +213,31 @@ function initCourseDetailsPage() {
     const params = new URLSearchParams(window.location.search);
     const courseId = params.get("id") || 1;
     const course = getCourseById(courseId);
+
+    const loggedIn = isLoggedIn();
+    const navAuth = document.getElementById("navbarAuthActions");
+    if (navAuth) {
+        if (loggedIn) {
+            const user = getCurrentUser() || { name: "Student", email: "" };
+            navAuth.innerHTML = `
+                <div class="d-flex align-items-center gap-2">
+                    <span class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center fw-bold" style="width: 32px; height: 32px; font-size: 0.85rem;">
+                        ${user.name.charAt(0).toUpperCase()}
+                    </span>
+                    <span class="small fw-semibold text-dark me-2">${user.name.split(' ')[0]}</span>
+                    <button class="btn btn-outline-danger btn-sm" onclick="logoutUser()">Sign Out</button>
+                </div>
+            `;
+        } else {
+            navAuth.innerHTML = `
+                <button type="button" class="btn btn-sm btn-outline-secondary me-2 d-flex align-items-center gap-1" onclick="triggerGoogleSignIn(() => window.location.reload())">
+                    ${GOOGLE_SVG_ICON} <span class="d-none d-sm-inline">Google</span>
+                </button>
+                <a href="login.html?redirect=course-details.html?id=${courseId}" class="btn btn-outline-primary btn-sm px-3 fw-semibold me-2">Login</a>
+                <a href="signup.html" class="btn btn-theme-primary btn-sm px-3 fw-semibold">Sign Up</a>
+            `;
+        }
+    }
 
     if (!course) {
         document.getElementById("courseDetailsContainer").innerHTML = `
